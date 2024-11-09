@@ -1,7 +1,14 @@
-export function stepOne() {
+import React, {PropsWithChildren} from "react"
+import SelectButton from "../SelectButton";
+import { FormWrapper } from "../FormWrapper";
+
+export function StepOne() {
     return (
-        <div>
-            <label>a</label>
-        </div>
+        <FormWrapper title="gender">
+            <SelectButton info="Female" />
+            <SelectButton info="Male" />
+            <SelectButton info="Neither" />
+            <SelectButton info="Prefer not to say" />
+        </FormWrapper>
     )
 }
