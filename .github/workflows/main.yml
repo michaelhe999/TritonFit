@@ -12,8 +12,7 @@ jobs: # the things being executed
    steps:
      - uses: actions/checkout@v4 # using version 4 of Actions
      - name: CD into tritonfit
-       run: cd tritonfit
-     - name: Install Dependencies
-       run: npm install
-     - name: Unit Test
-       run: npm test # the actual testing line
+       run: |
+        cd tritonfit 
+        npm install
+        npm test
