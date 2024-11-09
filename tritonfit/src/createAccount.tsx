@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import userPNG from "./assets/userPNG.png"
 
 export const CreateAccount = () => {
 
@@ -19,16 +19,26 @@ export const CreateAccount = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    alert(createUser.lastName);
+    //For Demo Purposes
+    alert("First Name: " + createUser.firstName + "\n" +
+          "Last Name: " + createUser.lastName + "\n" +
+          "Email: " + createUser.email + "\n" +
+          "Major: " + createUser.major + "\n" +
+          "Experience: " + createUser.experience + "\n" +
+          "About Me: " + createUser.aboutMe
+    );
+    setCreateUser(initialUser);
   };
  
  
  
   return (
     <form onSubmit={(event) => handleSubmit(event)}>
-      <h1>Create An Account</h1>
+      
     <div>
-      <label htmlFor="firstName">First Name:</label>
+      <h1>Create An Account</h1>
+      <img src={userPNG} className="form-logo"/>
+      <label htmlFor="firstName">First Name</label>
       <input
         type="text"
         id="firstName"
@@ -40,7 +50,7 @@ export const CreateAccount = () => {
     </div>
 
     <div>
-      <label htmlFor="lastName">Last Name:</label>
+      <label htmlFor="lastName">Last Name</label>
       <input
         type="text"
         id="lastName"
@@ -52,7 +62,7 @@ export const CreateAccount = () => {
     </div>
 
     <div>
-      <label htmlFor="email">Email:</label>
+      <label htmlFor="email">Email</label>
       <input
         type="email"
         id="email"
@@ -64,7 +74,7 @@ export const CreateAccount = () => {
     </div>
 
     <div>
-      <label htmlFor="major">Major:</label>
+      <label htmlFor="major">Major</label>
       <input
         type="text"
         id="major"
@@ -76,7 +86,7 @@ export const CreateAccount = () => {
     </div>
 
     <div>
-      <label htmlFor="year">Year:</label>
+      <label htmlFor="year">Year</label>
       <input
         type="number"
         id="year"
@@ -88,7 +98,7 @@ export const CreateAccount = () => {
     </div>
 
     <div>
-      <label htmlFor="experience">Experience Working Out:</label>
+      <label htmlFor="experience">Experience Working Out</label>
       <input
         type="text"
         id="experience"
@@ -100,7 +110,7 @@ export const CreateAccount = () => {
     </div>
 
     <div>
-      <label htmlFor="aboutMe">About Me:</label>
+      <label htmlFor="aboutMe">About Me</label>
       <textarea
         id="aboutMe"
         name="aboutMe"
@@ -111,7 +121,7 @@ export const CreateAccount = () => {
       ></textarea>
     </div>
 
-    <button type="submit">Submit</button>
+    <button type="submit">Create Account</button>
   </form>
   );
 };
