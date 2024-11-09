@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import Home from './components/Home';
 import './App.css';
 
 function HomePage() {
@@ -78,6 +79,7 @@ function App() {
           <Route path="/auth-callback" element={<AuthCallback />} />
           {/* Redirect /auth/google to the backend URL */}
           <Route path="/auth/google" element={<RedirectToGoogleAuth />} />
+          <Route path="/home" element={<Home />} />
           {/* Fallback route to redirect unknown paths */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

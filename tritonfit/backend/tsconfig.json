@@ -8,8 +8,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "types": ["jest", "node"] // Add Jest and Node types
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/tests/**/*"], // Ensure test files are included
   "exclude": ["node_modules"]
 }

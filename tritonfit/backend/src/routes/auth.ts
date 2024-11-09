@@ -45,7 +45,8 @@ router.get('/google/callback',
       });
 
       console.log('Authentication successful, redirecting to client...');
-      res.redirect(`${process.env.CLIENT_URL}/auth-callback?token=${token}`);
+      res.redirect(`${process.env.CLIENT_URL}/home?token=${token}`);
+      //res.redirect(`${process.env.CLIENT_URL}/auth-callback?token=${token}`);
     })(req, res, next);
   }
 );
