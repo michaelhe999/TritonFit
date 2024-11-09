@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import passport from 'passport';
-import authRoutes from './routes/auth';
+// import authRoutes from './routes/auth';
 import './config/passport';
 
 dotenv.config();
@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(passport.initialize());
 
 // Update the auth routes to include the base path
-app.use('/auth', authRoutes);
+// app.use('/auth', authRoutes);
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/tritonfit')
   .then(() => console.log('MongoDB connected successfully'))
