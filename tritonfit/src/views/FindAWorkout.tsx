@@ -72,6 +72,7 @@ export const FindAWorkout = () => {
             <h1 className = {styles.header} >Find A Workout</h1>
             <div className = {styles.buttonRow}>
                 <button 
+                    data-testid = "recentWorkoutButton"
                     className={ recentWorkoutClicked 
                             ? styles.buttonClicked 
                             : styles.buttonNotClicked }
@@ -80,6 +81,7 @@ export const FindAWorkout = () => {
                 </button>
 
                 <button 
+                    data-testid = "savedWorkoutButton"
                     className ={!recentWorkoutClicked 
                             ? styles.buttonClicked 
                             : styles.buttonNotClicked}
@@ -123,7 +125,7 @@ export const FindAWorkout = () => {
                 }
             </div>
 
-            <button className= {styles.generateButton}> Generate new workout</button>
+            <button data-testid = "generateWorkoutButton" className= {styles.generateButton}> Generate new workout</button>
 
         </>
     );
