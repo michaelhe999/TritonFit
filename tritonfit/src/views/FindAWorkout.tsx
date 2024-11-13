@@ -1,9 +1,29 @@
 import { useState } from "react"
 import styles from './FindAWorkout.module.css';
-import { Exercise, ex1 } from "../types/exercise";
+import { Exercise, Difficulty } from "../types/exercise";
 import dumbellIcon  from "../assets/dumbellFindWorkoutPage.svg"
 import { SingleExercise } from "../components/SingleExercise";
 import { SearchBar } from "../components/SearchBar";
+
+// Exercises are hard coded until database is integrated; remove once database integrated
+const ex1: Exercise[] = [
+    {
+        id: 1,
+        name: "Full Body HIIT",
+        duration: 50,
+        difficulty: Difficulty.INTERMEDIATE
+    }, {
+        id: 2,
+        name: "Chest Strength",
+        duration: 30,
+        difficulty: Difficulty.ADVANCED
+    }, {
+        id: 3,
+        name: "Shoulder Builder",
+        duration: 45,
+        difficulty: Difficulty.BEGINNER
+    }
+];
 
 const NoWorkoutRender = () => {
     return (
