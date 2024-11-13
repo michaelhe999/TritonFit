@@ -15,4 +15,4 @@ jobs: # the things being executed
        run: |
         cd tritonfit 
         npm install
-        npm test
+        CI=true npm test -- --watchAll=false
