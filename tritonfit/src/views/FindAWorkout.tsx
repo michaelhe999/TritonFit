@@ -2,7 +2,7 @@ import { useState } from "react"
 import styles from './FindAWorkout.module.css';
 import { Exercise, Difficulty } from "../types/exercise";
 import dumbellIcon  from "../assets/dumbellFindWorkoutPage.svg"
-import { SingleExercise } from "../components/SingleExercise";
+import { SingleWorkout } from "../components/SingleWorkout";
 import { SearchBar } from "../components/SearchBar";
 
 // Exercises are hard coded until database is integrated; remove once database integrated
@@ -103,7 +103,7 @@ export const FindAWorkout = () => {
                             />
                             <div>
                                 {filteredRecentExercises.map((currExercise) => (
-                                    <SingleExercise exercise={currExercise} />
+                                    <SingleWorkout exercise={currExercise} />
                                 ))}
                             </div>
                         </>
@@ -118,7 +118,7 @@ export const FindAWorkout = () => {
                             />
                             <div>
                                 {filteredSavedExercises.map((currExercise) => (
-                                    <SingleExercise exercise={currExercise} />
+                                    <SingleWorkout exercise={currExercise} />
                                 ))}
                             </div>
                         </>

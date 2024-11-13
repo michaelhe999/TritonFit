@@ -2,7 +2,7 @@ import { Exercise, Difficulty } from "../types/exercise"
 import styles from './components.module.css';
 import rightArrow from "../assets/rightArrow.svg"
 
-export const SingleExercise = ({ exercise }: { exercise: Exercise }) => {
+export const SingleWorkout = ({ exercise }: { exercise: Exercise }) => {
     
     //Determine color of difficulty for CSS purposes
     const getDifficultyClass = (difficulty: Difficulty) => {
