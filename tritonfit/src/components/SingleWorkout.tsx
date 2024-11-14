@@ -1,8 +1,8 @@
-import { Exercise, Difficulty } from "../types/exercise"
 import styles from './components.module.css';
 import rightArrow from "../assets/rightArrow.svg"
+import { Workout, Difficulty } from "../types/workout";
 
-export const SingleWorkout = ({ exercise }: { exercise: Exercise }) => {
+export const SingleWorkout = ({ workout }: { workout: Workout }) => {
     
     //Determine color of difficulty for CSS purposes
     const getDifficultyClass = (difficulty: Difficulty) => {
@@ -19,13 +19,13 @@ export const SingleWorkout = ({ exercise }: { exercise: Exercise }) => {
     };
 
     return (
-        <ul className={styles.exerciseItem}>
-            <div className={styles.exerciseLeftSection}>
-                <div style={{fontSize:'16px', fontWeight:'600'}}>{exercise.name}</div> 
-                <div style={{fontSize:'14px', color:'#686868'}}>{exercise.duration} min</div>
+        <ul className={styles.workoutItem}>
+            <div className={styles.workoutLeftSection}>
+                <div style={{fontSize:'16px', fontWeight:'600'}}>{workout.workoutName}</div> 
+                <div style={{fontSize:'14px', color:'#686868'}}>{workout.workoutDuration} min</div>
             </div>
-            <div className={styles.exerciseRightSection}>
-                <div style={{fontSize:'14px', color: getDifficultyClass(exercise.difficulty) }}>{exercise.difficulty}</div> 
+            <div className={styles.workoutRightSection}>
+                <div style={{fontSize:'14px', color: getDifficultyClass(workout.workoutDifficulty) }}>{workout.workoutDifficulty}</div> 
                 <div>
                     <button style={{border:'none', paddingTop: '15px'}}><img src={rightArrow} alt="rightArrow" /></button>
                 </div>
