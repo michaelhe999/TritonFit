@@ -1,4 +1,4 @@
-.exerciseItem{
+.workoutItem{
     background-color: #F1F1F1;
     width: 328px;
     height: 71px;
@@ -11,8 +11,8 @@
     align-items: stretch;
 }
 
-.exerciseLeftSection,
-.exerciseRightSection {
+.workoutLeftSection,
+.workoutRightSection {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -20,13 +20,13 @@
 
 }
 
-.exerciseLeftSection {
+.workoutLeftSection {
     align-items: flex-start;
     padding-left: 25px;
     height: 45px;
 }
 
-.exerciseRightSection {
+.workoutRightSection {
     align-items: flex-end;
     padding-right: 25px;
     height: 45px;
