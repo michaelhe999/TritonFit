@@ -6,19 +6,21 @@ interface Props {
 }
 
 const SelectButton = ({ info }: Props) => {
-    const [buttonState, setButtonState] = useState("unclicked");
+    const [buttonState, setButtonState] = useState(false);
+    const [buttonStyle, setButtonStyle] = useState("unclicked");
 
     const changeSelected = () => {
-        if (buttonState !== "unclicked") {
-            setButtonState("unclicked");
+        if (buttonStyle !== "unclicked") {
+            setButtonStyle("unclicked");
         }
         else {
-            setButtonState("clicked");
+            setButtonStyle("clicked");
         }
+        setButtonState(!buttonState)
     }
 
     return (
-        <div className={buttonState} onClick={changeSelected}>
+        <div className={buttonStyle} onClick={changeSelected}>
             <h3>
                 {info}
             </h3>

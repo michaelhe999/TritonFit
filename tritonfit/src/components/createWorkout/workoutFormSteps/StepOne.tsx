@@ -4,7 +4,7 @@ import { FormWrapper } from "../FormWrapper";
 
 export function StepOne() {
     return (
-        <FormWrapper title="gender">
+        <FormWrapper title="Gender">
             <SelectButton info="Female" />
             <SelectButton info="Male" />
             <SelectButton info="Neither" />
