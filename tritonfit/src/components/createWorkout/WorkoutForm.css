@@ -1,9 +1,11 @@
 .clicked {
     background-color: #182B49;
+    color: white;
 }
 
 .unclicked {
     background-color: white;
+    color: black;
 }
 
 .subSections {
@@ -17,4 +19,21 @@
     gap: 1rem;
     justify-content: center;
     grid-template-columns: auto;
+}
+
+.options div {
+    border-radius: 20px;
+    width: 366px;
+    height: 76px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 16px;
+}
+
+.desc {
+    font-size: 12px;
+}
+
+.subSections {
+    margin-bottom: 0;
 }

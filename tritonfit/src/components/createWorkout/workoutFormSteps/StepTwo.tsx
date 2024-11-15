@@ -5,6 +5,9 @@ import { FormWrapper } from "../FormWrapper";
 export function StepTwo() {
     return (
         <FormWrapper title="Muscle">
+            <p className="desc">
+                What areas of your body do you want to target for this workout?
+            </p>
             <SelectButton info="Shoulders" />
             <SelectButton info="Chest" />
             <SelectButton info="Triceps" />
