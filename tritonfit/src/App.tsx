@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { CreateAccount } from './createAccount';
+import { CreateAccount } from './components/createAccount';
 import './App.css';
 
 function App() {
