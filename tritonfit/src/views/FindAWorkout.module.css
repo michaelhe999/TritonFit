@@ -1,0 +1,71 @@
+.header {
+    font-family: 'Manrope';
+    font-size: 24px; 
+    margin-left: 18px;
+}
+
+.buttonRow {
+    border: 0.5px solid #CFD5D9;
+    border-radius:10px;
+    width: 356px;
+    height: 35px;
+    margin-left: 18px;
+}
+
+.buttonClicked {
+    border: none;
+    margin-top: 4px;
+    margin-left: 4px;
+    border-radius: 10px;
+    width: 172px;
+    height: 27px;
+    background-color: #161616;
+    color: white;
+    font-size: 12px;
+}
+
+.buttonNotClicked {
+    border: none;
+    margin-top: 4px;
+    margin-left: 4px;
+    border-radius: 10px;
+    width: 172px;
+    height: 27px;
+    background-color: white;
+    font-size: 12px;
+    color: #686868
+
+}
+
+.dumbellIcon{
+    margin-left: 155px;
+}
+
+.noWorkoutHeader {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Manrope';
+    margin-left: 140px;
+    margin-top: 34px;
+}
+
+.noWorkoutText {
+    color: #686868;
+    font-size: 12px;
+    width: 296px;
+    margin-left: 50px;
+    text-align: center;
+
+}
+
+.generateButton {
+    position: fixed;
+    bottom: 90px;
+    left: 16px;
+    width: 360px;
+    height: 50px;
+    border-radius: 20px;
+    background-color: #182B49;
+    border: none;
+    color: white;
+}
