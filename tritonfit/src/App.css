@@ -1,14 +1,114 @@
-.App {
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Calibri', 'Helvetica Neue', Arial, sans-serif; /* Smoother font choice */
+  background-color: #f4f7fc;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
   text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.App {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px; /* Rounded corners for the form container */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #2d3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+form {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+}
+
+label {
+  font-weight: 300;
+  font-size: 1rem;
+  color: #555;
+  display: block;
+  text-align: left;
+}
+
+div {
+  display: block;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 1rem;
+}
+
+.form-logo {
+  width: 100px; /* Adjust the width to make the image smaller */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 1.5rem; /* Add space below the image */
+}
+
+input,
+button,
+textarea {
+  padding: 0.8rem;
+  width: 100%;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 15px; /* Rounded corners */
+  background-color: #f9f9f9;
+  outline: none;
+  transition: border-color 0.3s ease;
+  flex-grow: 1;
+  font-family: inherit; /* Keeps font consistent */
+}
+
+input:focus,
+textarea:focus {
+  border-color: #007bff; /* Color on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3); /* Soft shadow on focus */
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+button {
+  padding: 0.8rem;
+  font-size: 1rem;
+  background-color: #182B49;
+  color: #fff;
+  border: none;
+  border-radius: 15px; /* Rounded corners for button */
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+}
+
+button:hover {
+  background-color: #182B49;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow on hover */
+}
+
+button:active {
+  background-color: #182B49;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
