@@ -1,9 +1,14 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { FindAWorkout } from './FindAWorkout';
+import { MemoryRouter} from 'react-router-dom';
 
-test('renders learn react link', () => {
-    render(<FindAWorkout />);
+test('Find a workout page', () => {
+    render(    
+    <MemoryRouter>
+        <FindAWorkout />
+    </MemoryRouter>
+    );
     const header = screen.getByText('Find A Workout');
     expect(header).toBeInTheDocument();
 
