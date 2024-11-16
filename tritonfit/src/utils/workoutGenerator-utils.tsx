@@ -18,7 +18,7 @@ export const generateWorkout = async(formResponse: WorkoutFormResponses): Promis
         const rawResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
-            "Authorization": `Bearer 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`,
+            "Authorization": ``,
             "Content-Type": "application/json"
             },
             body: JSON.stringify({
