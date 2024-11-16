@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  font-family: 'Manrope';
+  font-family: "Manrope";
   color: #2d2d3d;
 }
 .section {
@@ -32,4 +32,13 @@
 .section-subtitle {
   font-size: 12px;
   color: #8b8b8b;
+}
+
+.header-button {
+  all: unset; /* Remove default button styles */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
