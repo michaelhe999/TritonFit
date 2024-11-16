@@ -3,6 +3,8 @@ body {
 }
 
 .border {
+    position: fixed;
+    left: -3px;
     width: 393px;
     height: 124px;
 }
