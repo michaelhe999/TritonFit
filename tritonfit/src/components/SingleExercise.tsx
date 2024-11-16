@@ -37,7 +37,8 @@ export const SingleExercise = ({ exercise }: SingleExerciseProps) => {
                         fontWeight:'bold',
                         fontFamily:'Manrope',
                         marginBottom:'5px',
-                        marginTop:'0px'
+                        marginTop:'0px',
+                        marginLeft:'0px'
                     }}>
                         {exercise.name}
                 </p>
