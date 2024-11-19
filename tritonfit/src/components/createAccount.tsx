@@ -24,6 +24,7 @@ export const CreateAccount = () => {
           "Last Name: " + createUser.lastName + "\n" +
           "Email: " + createUser.email + "\n" +
           "Major: " + createUser.major + "\n" +
+          "Year: " + createUser.year + "\n" +
           "Experience: " + createUser.experience + "\n" +
           "About Me: " + createUser.aboutMe
     );
@@ -88,7 +89,7 @@ export const CreateAccount = () => {
     <div>
       <label htmlFor="year">Year</label>
       <input
-        type="number"
+        type="text"
         id="year"
         name="year"
         value={createUser.year}
