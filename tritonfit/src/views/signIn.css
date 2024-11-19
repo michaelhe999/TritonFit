@@ -1,0 +1,100 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Arial Black"; /* Smoother font choice */
+    font-weight: bold;
+    background-color: #f4f7fc;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .SignIn {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px; /* Rounded corners for the form container */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+  }
+  
+  h1 {
+    font-family: "Arial Black"; /* Smoother font choice */
+    font-weight: bold;
+    color: #2d3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  
+  div {
+    display: block;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .app-logo {
+    width: 100%; 
+    margin-top: 4rem;
+    height: auto;  
+  }
+  
+
+
+  
+  button {
+    padding: 0.8rem;
+    margin-top: 300px;
+    font-size: 16px;
+    /* width: 100%; */
+    background-color: #182B49;
+    color: #FFD200;
+    border: none;
+    border-radius: 15px; /* Rounded corners for button */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: "Verdana";
+  }
+  
+  button:hover {
+    background-color: #182B49;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow on hover */
+  }
+  
+  button:active {
+    background-color: #182B49;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  @media screen and (max-width: 800px) {
+    body {
+        padding: 2rem; 
+        min-height: auto; 
+      }
+    
+      .SignIn {
+        padding: 1.5rem; 
+        margin: 1rem; 
+      }
+    
+    
+      button {
+        margin-bottom: 1rem; 
+   
+      }
+
+}
