@@ -4,14 +4,36 @@ import "./CreateWorkout.css"
 import { StepOne } from "../components/createWorkout/workoutFormSteps/StepOne"
 import { StepTwo } from "../components/createWorkout/workoutFormSteps/StepTwo"
 import { StepThree } from "../components/createWorkout/workoutFormSteps/StepThree"
+import { StepFour } from "../components/createWorkout/workoutFormSteps/StepFour"
+import { StepFive } from "../components/createWorkout/workoutFormSteps/StepFive"
 import leftArrow from "../assets/leftArrow.svg"
 import { NavLink } from "react-router-dom"
+import { WorkoutFormResponses } from "../types/workout"
 
-const INITIAL_DATA = {}
+const INITIAL_DATA: WorkoutFormResponses = {
+    gender: "",
+    goal: "",
+    targetArea: "",
+    level: "",
+    duration: ""
+}
 
 export function CreateWorkout() {
     const [data, setData] = useState(INITIAL_DATA)
-    const { steps, stepIndex, step, isFirstStep, isLastStep, back, next } = useMultistepForm([ <StepOne />, <StepTwo />, <StepThree /> ])
+
+    function updateFields(fields: Partial<WorkoutFormResponses>) {
+        setData(prev => {
+            return { ...prev, ...fields }
+        })
+    }
+
+    const { steps, stepIndex, step, isFirstStep, isLastStep, back, next } = useMultistepForm([ 
+    <StepOne {...data} updateFields={updateFields} />, 
+    <StepTwo {...data} updateFields={updateFields} />, 
+    <StepThree {...data} updateFields={updateFields} />,
+    <StepFour {...data} updateFields={updateFields} />,
+    <StepFive {...data} updateFields={updateFields} />
+    ])
 
     function onSubmit(e: FormEvent) {
         e.preventDefault()

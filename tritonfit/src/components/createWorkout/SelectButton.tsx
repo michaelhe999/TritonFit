@@ -3,24 +3,14 @@ import "./WorkoutForm.css"
 
 interface Props {
     info: string;
+    selected: boolean
+    onSelect: () => void
 }
 
-const SelectButton = ({ info }: Props) => {
-    const [buttonState, setButtonState] = useState(false);
-    const [buttonStyle, setButtonStyle] = useState("unclicked");
-
-    const changeSelected = () => {
-        if (buttonStyle !== "unclicked") {
-            setButtonStyle("unclicked");
-        }
-        else {
-            setButtonStyle("clicked");
-        }
-        setButtonState(!buttonState)
-    }
+const SelectButton = ({ info, selected, onSelect }: Props) => {
 
     return (
-        <div className={buttonStyle} onClick={changeSelected}>
+        <div className={selected ? "clicked" : "unclicked"} onClick={onSelect}>
             <h3>
                 {info}
             </h3>
