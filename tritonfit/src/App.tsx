@@ -13,48 +13,52 @@ const App: React.FC = () => {
   return (
     <Router>
       {/* Navbar included for these routes */}
-      <Routes>
-        <Route path="/" 
-          element={
-            <>
-              <Home />
-              <Navbar />
-            </>
-          }
-        />
-        <Route path="/findworkout"
-          element={
-            <>
-              <FindAWorkout />
-              <Navbar />
-            </>
-          }
-        />
-        <Route path="/meetothers"
-          element={
-            <>
-              <MeetOthers />
-              <Navbar />
-            </>
-          }
-        />
-        <Route path="/profile"
-          element={
-            <>
-              <Profile />
-              <Navbar />
-            </>
-          }
-        />
-      </Routes>
-
+      <div className="app-content">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Home />
+                <Navbar />
+              </>
+            }
+          />
+          <Route
+            path="/findworkout"
+            element={
+              <>
+                <FindAWorkout />
+                <Navbar />
+              </>
+            }
+          />
+          <Route
+            path="/meetothers"
+            element={
+              <>
+                <MeetOthers />
+                <Navbar />
+              </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <>
+                <Profile />
+                <Navbar />
+              </>
+            }
+          />
+        </Routes>
+      </div>
       {/* Routes that don't include the Navbar */}
       <Routes>
         <Route path="/recommendedWorkouts" element={<RecommendedWorkouts />} />
         <Route path="/exercises" element={<ExercisesPage />} />
       </Routes>
     </Router>
-
   );
 };
 
