@@ -59,6 +59,7 @@ const App: React.FC = () => {
         <Route path="/exercises" element={<ExercisesPage />} />
       </Routes>
     </Router>
+
   );
 };
 
