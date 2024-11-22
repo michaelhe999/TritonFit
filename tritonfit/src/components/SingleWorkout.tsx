@@ -1,8 +1,16 @@
 import styles from './components.module.css';
 import rightArrow from "../assets/rightArrow.svg"
 import { Workout, Difficulty } from "../types/workout";
+import { Exercise } from '../types/exercise';
+import { useNavigate } from "react-router-dom";
 
-export const SingleWorkout = ({ workout }: { workout: Workout }) => {
+interface SingleWorkoutProps {
+    workout: Workout,
+    exercises: Exercise[],
+}
+
+export const SingleWorkout = ({ workout, exercises}: SingleWorkoutProps) => {
+    const navigate = useNavigate();
     
     //Determine color of difficulty for CSS purposes
     const getDifficultyClass = (difficulty: Difficulty) => {
@@ -18,6 +26,10 @@ export const SingleWorkout = ({ workout }: { workout: Workout }) => {
         }
     };
 
+    const handleOnClick = () => {
+        navigate("/exercises", { state: { exercises, workout } });
+    };
+
     return (
         <ul className={styles.workoutItem}>
             <div className={styles.workoutLeftSection}>
@@ -27,7 +39,7 @@ export const SingleWorkout = ({ workout }: { workout: Workout }) => {
             <div className={styles.workoutRightSection}>
                 <div style={{fontSize:'14px', color: getDifficultyClass(workout.workoutDifficulty) }}>{workout.workoutDifficulty}</div> 
                 <div>
-                    <button style={{border:'none', paddingTop: '15px'}}><img src={rightArrow} alt="rightArrow" /></button>
+                    <button style={{border:'none', paddingTop: '15px'}} onClick={handleOnClick}><img src={rightArrow} alt="rightArrow" /></button>
                 </div>
             </div>
         </ul>
