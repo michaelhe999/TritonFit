@@ -116,7 +116,7 @@ export const FindAWorkout = () => {
                             />
                             <div>
                                 {filteredRecentExercises.map((currWorkout) => (
-                                    <SingleWorkout workout={currWorkout} />
+                                    <SingleWorkout workout={currWorkout} exercises={currWorkout.exercises}/>
                                 ))}
                             </div>
                         </>
@@ -131,7 +131,7 @@ export const FindAWorkout = () => {
                             />
                             <div>
                                 {filteredSavedExercises.map((currWorkout) => (
-                                    <SingleWorkout workout={currWorkout} />
+                                    <SingleWorkout workout={currWorkout} exercises={currWorkout.exercises}/>
                                 ))}
                             </div>
                         </>
