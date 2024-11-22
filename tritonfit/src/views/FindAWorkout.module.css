@@ -1,3 +1,10 @@
+.container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    font-family: "Manrope";
+  }
+
 .header {
     font-family: 'Manrope';
     font-size: 24px; 
@@ -59,9 +66,9 @@
 }
 
 .generateButton {
-    position: fixed;
+    /* position: fixed;
     bottom: 90px;
-    left: 16px;
+    left: 16px; */
     width: 360px;
     height: 50px;
     border-radius: 20px;

@@ -41,7 +41,7 @@ export const SearchBar = <T,>({
 
     return (
         <div className ={styles.search}>
-            <label data-testid = 'searchLabel'> Search</label>
+            <label data-testid = 'searchLabel' className="search-label">Search</label>
             <input
                 className= {styles.searchBar}
                 type="text"
