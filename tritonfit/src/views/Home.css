@@ -1,0 +1,44 @@
+.container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: "Manrope";
+  color: #2d2d3d;
+}
+.section {
+  background-color: #f9fafc;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.header h1 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.header-icons {
+  display: flex;
+  gap: 16px;
+}
+
+.section-subtitle {
+  font-size: 12px;
+  color: #8b8b8b;
+}
+
+.header-button {
+  all: unset; /* Remove default button styles */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
