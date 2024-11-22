@@ -4,7 +4,7 @@ import "./App.css";
 import Navbar from "./Navbar/Navbar";
 import Home from "./components/Home";
 import { FindAWorkout } from "./views/FindAWorkout";
-import MeetOthers from "./components/MeetOthers";
+import MeetOthers from "./views/MeetOthers";
 import Profile from "./components/Profile";
 
 const App: React.FC = () => {
