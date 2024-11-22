@@ -8,8 +8,6 @@ import MeetOthers from "./components/MeetOthers";
 import Profile from "./components/Profile";
 import { RecommendedWorkouts } from "./views/RecommendedWorkouts";
 import { ExercisesPage } from "./components/ExercisesPage";
-import { CreateAccount } from "./components/createAccount";
-import { SignIn } from "./components/signIn";
 
 const App: React.FC = () => {
   return (
@@ -54,8 +52,6 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/recommendedWorkouts" element={<RecommendedWorkouts />} />
         <Route path="/exercises" element={<ExercisesPage />} />
-        <Route path="/createaccount" element={<CreateAccount />} />
-        <Route path="/signin" element={<SignIn />} />
       </Routes>
     </Router>
 
