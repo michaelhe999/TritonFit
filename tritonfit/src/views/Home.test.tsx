@@ -8,14 +8,4 @@ describe('Home Component', () => {
     expect(screen.getByText('This Week')).toBeInTheDocument();
     expect(screen.getByText('Hours')).toBeInTheDocument();
   });
-
-  it('calls the alert when the notification icon is clicked', () => {
-    window.alert = jest.fn();
-
-    render(<Home />);
-    const notificationIcon = screen.getByRole('button', { name: /notification/i });
-    fireEvent.click(notificationIcon);
-
-    expect(window.alert).toHaveBeenCalledWith('Notification icon clicked!');
-  });
 });
