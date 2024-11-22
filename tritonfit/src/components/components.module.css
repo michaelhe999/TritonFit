@@ -1,4 +1,4 @@
-.exerciseItem{
+.workoutItem{
     background-color: #F1F1F1;
     width: 328px;
     height: 71px;
@@ -11,8 +11,8 @@
     align-items: stretch;
 }
 
-.exerciseLeftSection,
-.exerciseRightSection {
+.workoutLeftSection,
+.workoutRightSection {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -20,13 +20,13 @@
 
 }
 
-.exerciseLeftSection {
+.workoutLeftSection {
     align-items: flex-start;
     padding-left: 25px;
     height: 45px;
 }
 
-.exerciseRightSection {
+.workoutRightSection {
     align-items: flex-end;
     padding-right: 25px;
     height: 45px;
@@ -47,4 +47,52 @@
     display: flex;
     flex-direction: column;
     margin-left: 18px;
+}
+
+.exercisePageHeader {
+    font-family: 'Manrope';
+    font-size: 24px;
+    font-weight: bolder;
+    justify-content: left;
+    margin-left: 24px;
+    margin-bottom: 0px;
+}
+
+.exercisePageWorkoutDescription {
+    font-size: 14px;
+    color: #686868;
+    margin-left: 24px;
+    margin-top: 0px;
+}
+
+.exercisePageInnerDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #686868; 
+    padding: 0px;
+    width: 125px;
+    height: 100px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 0;
+}
+
+.exercisePageCheckIcon {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.finishWorkoutButton {
+    margin-top: 30px;
+    margin-left: 15px;
+    margin-bottom: 30px;
+    width: 360px;
+    height: 50px;
+    border-radius: 20px;
+    background-color: #182B49;
+    border: none;
+    color: white;
+    font-size: 16px;
 }

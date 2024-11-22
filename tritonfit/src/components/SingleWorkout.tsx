@@ -1,8 +1,16 @@
-import { Exercise, Difficulty } from "../types/exercise"
 import styles from './components.module.css';
 import rightArrow from "../assets/rightArrow.svg"
+import { Workout, Difficulty } from "../types/workout";
+import { Exercise } from '../types/exercise';
+import { useNavigate } from "react-router-dom";
 
-export const SingleWorkout = ({ exercise }: { exercise: Exercise }) => {
+interface SingleWorkoutProps {
+    workout: Workout,
+    exercises: Exercise[],
+}
+
+export const SingleWorkout = ({ workout, exercises}: SingleWorkoutProps) => {
+    const navigate = useNavigate();
     
     //Determine color of difficulty for CSS purposes
     const getDifficultyClass = (difficulty: Difficulty) => {
@@ -18,16 +26,20 @@ export const SingleWorkout = ({ exercise }: { exercise: Exercise }) => {
         }
     };
 
+    const handleOnClick = () => {
+        navigate("/exercises", { state: { exercises, workout } });
+    };
+
     return (
-        <ul className={styles.exerciseItem}>
-            <div className={styles.exerciseLeftSection}>
-                <div style={{fontSize:'16px', fontWeight:'600'}}>{exercise.name}</div> 
-                <div style={{fontSize:'14px', color:'#686868'}}>{exercise.duration} min</div>
+        <ul className={styles.workoutItem}>
+            <div className={styles.workoutLeftSection}>
+                <div style={{fontSize:'16px', fontWeight:'600'}}>{workout.workoutName}</div> 
+                <div style={{fontSize:'14px', color:'#686868'}}>{workout.workoutDuration} min</div>
             </div>
-            <div className={styles.exerciseRightSection}>
-                <div style={{fontSize:'14px', color: getDifficultyClass(exercise.difficulty) }}>{exercise.difficulty}</div> 
+            <div className={styles.workoutRightSection}>
+                <div style={{fontSize:'14px', color: getDifficultyClass(workout.workoutDifficulty) }}>{workout.workoutDifficulty}</div> 
                 <div>
-                    <button style={{border:'none', paddingTop: '15px'}}><img src={rightArrow} alt="rightArrow" /></button>
+                    <button style={{border:'none', paddingTop: '15px'}} onClick={handleOnClick}><img src={rightArrow} alt="rightArrow" /></button>
                 </div>
             </div>
         </ul>

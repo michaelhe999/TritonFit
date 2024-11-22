@@ -1,0 +1,22 @@
+.header {
+    font-family: 'Manrope';
+    font-size: 18px;
+    font-weight: bold;
+    justify-content: left;
+    margin-left: 21px;
+}
+
+.logo {
+    margin-top: 40px;
+    margin-left: 166px;
+}
+
+.backButton {
+    position: absolute;
+    top: 7%;
+    left: 5%; 
+    border: none;
+    background: none;
+    cursor: pointer;
+    
+}

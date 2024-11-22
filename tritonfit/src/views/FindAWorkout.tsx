@@ -1,27 +1,39 @@
 import { useState } from "react"
 import styles from './FindAWorkout.module.css';
-import { Exercise, Difficulty } from "../types/exercise";
 import dumbellIcon  from "../assets/dumbellFindWorkoutPage.svg"
 import { SingleWorkout } from "../components/SingleWorkout";
 import { SearchBar } from "../components/SearchBar";
+import { Workout, Difficulty } from "../types/workout";
+import { Exercise } from "../types/exercise";
 
-// Exercises are hard coded until database is integrated; remove once database integrated
-const ex1: Exercise[] = [
+// Exercises and workouts are hard coded until database is integrated; remove once database integrated
+const fakeExercise: Exercise[] = [
     {
-        id: 1,
-        name: "Full Body HIIT",
-        duration: 50,
-        difficulty: Difficulty.INTERMEDIATE
+        name: 'Pushup',
+        sets: 3,
+        reps: '4-6'
+    }
+]
+
+const fakeWorkout: Workout[] = [
+    {
+        workoutName: "Back Builder",
+        workoutDescription: "HIIT for back",
+        workoutDuration: 30,
+        workoutDifficulty: Difficulty.INTERMEDIATE,
+        exercises: fakeExercise
     }, {
-        id: 2,
-        name: "Chest Strength",
-        duration: 30,
-        difficulty: Difficulty.ADVANCED
+        workoutName: "Chest Strength",
+        workoutDescription: "HIIT for chest",
+        workoutDuration: 60,
+        workoutDifficulty: Difficulty.ADVANCED,
+        exercises: fakeExercise
     }, {
-        id: 3,
-        name: "Shoulder Builder",
-        duration: 45,
-        difficulty: Difficulty.BEGINNER
+        workoutName: "Full Body",
+        workoutDescription: "HIIT for full body",
+        workoutDuration: 45,
+        workoutDifficulty: Difficulty.BEGINNER,
+        exercises: fakeExercise
     }
 ];
 
@@ -38,8 +50,8 @@ const NoWorkoutRender = () => {
 export const FindAWorkout = () => {
     const [recentWorkoutClicked, setRecentWorkoutClicked] = useState<boolean>(true);
 
-    const [savedWorkouts, setSavedWorkouts] =  useState<Exercise[]>(ex1)
-    const [recentWorkouts, setRecentWorkouts] =  useState<Exercise[]>(ex1)
+    const [savedWorkouts, setSavedWorkouts] =  useState<Workout[]>(fakeWorkout)
+    const [recentWorkouts, setRecentWorkouts] =  useState<Workout[]>(fakeWorkout)
 
     const handleRecentWorkoutClick = () => {
         setRecentWorkoutClicked(true);
@@ -51,14 +63,14 @@ export const FindAWorkout = () => {
         resetSearch();
     }
 
-    const [filteredRecentExercises, setFilteredRecentExercises] = useState<Exercise[]>(recentWorkouts);
-    const [filteredSavedExercises, setFilteredSavedExercises] = useState<Exercise[]>(savedWorkouts);
+    const [filteredRecentExercises, setFilteredRecentExercises] = useState<Workout[]>(recentWorkouts);
+    const [filteredSavedExercises, setFilteredSavedExercises] = useState<Workout[]>(savedWorkouts);
 
-    const handleRecentSearchResults = (results: Exercise[]) => {
+    const handleRecentSearchResults = (results: Workout[]) => {
         setFilteredRecentExercises(results);
     };
 
-    const handleSavedSearchResults = (results: Exercise[]) => {
+    const handleSavedSearchResults = (results: Workout[]) => {
         setFilteredSavedExercises(results);
     };
 
@@ -98,12 +110,12 @@ export const FindAWorkout = () => {
                             <SearchBar
                                 items={recentWorkouts}
                                 onResults={handleRecentSearchResults}
-                                searchKey="name" 
+                                searchKey="workoutName" 
                                 resetCondition={setRecentWorkoutClicked}
                             />
                             <div>
-                                {filteredRecentExercises.map((currExercise) => (
-                                    <SingleWorkout exercise={currExercise} />
+                                {filteredRecentExercises.map((currWorkout) => (
+                                    <SingleWorkout workout={currWorkout} exercises={currWorkout.exercises}/>
                                 ))}
                             </div>
                         </>
@@ -113,12 +125,12 @@ export const FindAWorkout = () => {
                             <SearchBar
                                 items={savedWorkouts}
                                 onResults={handleSavedSearchResults}
-                                searchKey="name" 
+                                searchKey="workoutName" 
                                 resetCondition={setRecentWorkoutClicked}
                             />
                             <div>
-                                {filteredSavedExercises.map((currExercise) => (
-                                    <SingleWorkout exercise={currExercise} />
+                                {filteredSavedExercises.map((currWorkout) => (
+                                    <SingleWorkout workout={currWorkout} exercises={currWorkout.exercises}/>
                                 ))}
                             </div>
                         </>
