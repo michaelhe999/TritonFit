@@ -68,4 +68,10 @@
     background-color: #182B49;
     border: none;
     color: white;
+    text-decoration: none;
+    text-align: center;
+}
+
+.generateButton p {
+    vertical-align: middle;
 }

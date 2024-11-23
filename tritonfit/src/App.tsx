@@ -1,5 +1,6 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { CreateWorkout } from './views/CreateWorkout'
 import "./App.css";
 import Navbar from "./Navbar/Navbar";
 import Home from "./views/Home";
@@ -56,6 +57,7 @@ const App: React.FC = () => {
         <Route path="/exercises" element={<ExercisesPage />} />
         <Route path="/createaccount" element={<CreateAccount />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/createWorkout" element={<CreateWorkout />} />
       </Routes>
     </Router>
 
