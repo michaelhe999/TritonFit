@@ -17,9 +17,9 @@ declare global {
 // Add more detailed logging to Google auth route
 router.get('/google',
   (req, res, next) => {
-    console.log('Starting Google authentication...');
-    console.log('Session:', req.session);
-    console.log('Headers:', req.headers);
+    console.log('\n[Google Auth] Starting Google authentication flow');
+    console.log('[Google Auth] Headers:', JSON.stringify(req.headers, null, 2));
+    console.log('[Google Auth] Session:', JSON.stringify(req.session, null, 2));
     
     passport.authenticate('google', { 
       scope: ['profile', 'email'],
@@ -30,19 +30,12 @@ router.get('/google',
   }
 );
 
-// Add more detailed logging to callback route
 router.get('/google/callback',
   (req, res, next) => {
     console.log('Received callback from Google');
     console.log('Query params:', req.query);
-    console.log('Session:', req.session);
     
-    passport.authenticate('google', { session: false }, (err, user, info) => {
-      console.log('Inside passport.authenticate callback');
-      console.log('Error:', err);
-      console.log('User:', user);
-      console.log('Info:', info);
-      
+    passport.authenticate('google', { session: false }, (err, user) => {
       if (err) {
         console.error('Authentication error:', err);
         return res.redirect(`${process.env.CLIENT_URL}/auth-error`);
@@ -50,21 +43,25 @@ router.get('/google/callback',
       
       if (!user) {
         console.error('No user returned from Google');
-        console.error('Auth Info:', info);
         return res.redirect(`${process.env.CLIENT_URL}/auth-error`);
       }
 
       try {
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!, {
+        // Get isNewUser from temporary property
+        const isNewUser = user.get('isNewUser');
+        
+        const token = jwt.sign({ 
+          userId: user._id,
+          isNewUser: isNewUser 
+        }, process.env.JWT_SECRET!, {
           expiresIn: '7d'
         });
 
         console.log('Authentication successful, redirecting to client...');
-        console.log('Generated token (first 20 chars):', token.substring(0, 20));
+        const redirectPath = isNewUser ? '/createaccount' : '/home';
+        const redirectUrl = `${process.env.CLIENT_URL}/auth-callback?token=${token}&destination=${redirectPath}`;
         
-        const redirectUrl = `${process.env.CLIENT_URL}/auth-callback?token=${token}`;
         console.log('Redirecting to:', redirectUrl);
-        
         res.redirect(redirectUrl);
       } catch (error) {
         console.error('Error generating token:', error);
@@ -77,30 +74,30 @@ router.get('/google/callback',
 // User info route with more logging
 router.get('/user', 
   async (req, res) => {
-    console.log('User info request received');
-    console.log('Auth header:', req.headers.authorization);
+    console.log('\n[User Info] User info request received');
+    console.log('[User Info] Auth header:', req.headers.authorization);
     
     try {
       const token = req.headers.authorization?.split(' ')[1];
       if (!token) {
-        console.log('No token provided in request');
+        console.log('[User Info] No token provided in request');
         return res.status(401).json({ message: 'No token provided' });
       }
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { userId: string };
-      console.log('Decoded token:', decoded);
+      console.log('[User Info] Decoded token userId:', decoded.userId);
       
       const user = await User.findById(decoded.userId).select('-__v');
-      console.log('Found user:', user ? 'yes' : 'no');
+      console.log('[User Info] Found user:', user ? user._id : 'no');
       
       if (!user) {
-        console.log('User not found in database');
+        console.log('[User Info] User not found in database');
         return res.status(404).json({ message: 'User not found' });
       }
 
       res.json(user);
     } catch (error) {
-      console.error('Error in /user route:', error);
+      console.error('[User Info] Error:', error);
       res.status(401).json({ message: 'Invalid token' });
     }
   }

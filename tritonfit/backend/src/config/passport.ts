@@ -1,10 +1,10 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import User from '../models/User';
+import User, { IUser } from '../models/User';
 import dotenv from 'dotenv';
 dotenv.config({ path: '../.env' });
 
-passport.serializeUser((user: any, done) => {
+passport.serializeUser((user: IUser, done) => {
   console.log('Serializing user:', user.id);
   done(null, user.id);
 });
@@ -38,6 +38,8 @@ passport.use(
         
         if (existingUser) {
           console.log('Existing user found:', existingUser.id);
+          // Store isNewUser in user object
+          existingUser.set('isNewUser', false, { strict: false });
           return done(null, existingUser);
         }
 
@@ -46,9 +48,12 @@ passport.use(
           googleId: profile.id,
           email: profile.emails![0].value,
           name: profile.displayName,
-          picture: profile.photos![0].value
+          picture: profile.photos![0].value,
+          isProfileComplete: false
         });
 
+        // Store isNewUser in user object
+        newUser.set('isNewUser', true, { strict: false });
         console.log('New user created:', newUser.id);
         done(null, newUser);
       } catch (error) {

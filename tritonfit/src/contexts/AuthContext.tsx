@@ -13,13 +13,15 @@ interface AuthContextType {
   loading: boolean;
   login: () => void;
   logout: () => void;
+  handleAuthCallback: (token: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
   login: () => {},
-  logout: () => {}
+  logout: () => {},
+  handleAuthCallback: async () => {}
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -59,6 +61,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setLoading(false);
   };
 
+  const handleAuthCallback = async (token: string) => {
+    try {
+      localStorage.setItem('token', token);
+      await checkAuth(); // Fetch user data with the new token
+      window.location.replace('/home'); // Redirect to home after successful auth
+    } catch (error) {
+      console.error('Error handling auth callback:', error);
+      localStorage.removeItem('token');
+      window.location.replace('/'); // Redirect to signin on error
+    }
+  };
+
   const login = () => {
     window.location.href = 'http://localhost:5001/auth/google';
   };
@@ -66,10 +80,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     localStorage.removeItem('token');
     setUser(null);
+    window.location.replace('/');
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, handleAuthCallback }}>
       {children}
     </AuthContext.Provider>
   );
