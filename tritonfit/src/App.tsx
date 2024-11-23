@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'r
 import { CreateWorkout } from './views/CreateWorkout'
 import "./App.css";
 import Navbar from "./Navbar/Navbar";
-import Home from "./components/Home";
+import Home from "./views/Home";
 import { FindAWorkout } from "./views/FindAWorkout";
-import MeetOthers from "./components/MeetOthers";
-import Profile from "./components/Profile";
+import MeetOthers from "./components/dummy-pages/MeetOthers";
+import Profile from "./components/dummy-pages/Profile";
 import { RecommendedWorkouts } from "./views/RecommendedWorkouts";
 import { ExercisesPage } from "./components/ExercisesPage";
 
