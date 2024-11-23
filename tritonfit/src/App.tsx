@@ -8,8 +8,8 @@ import MeetOthers from "./components/dummy-pages/MeetOthers";
 import Profile from "./components/dummy-pages/Profile";
 import { RecommendedWorkouts } from "./views/RecommendedWorkouts";
 import { ExercisesPage } from "./components/ExercisesPage";
-import { CreateAccount } from "./components/createAccount";
-import { SignIn } from "./components/signIn";
+import { CreateAccount } from "./views/createAccount";
+import { SignIn } from "./views/signIn";
 
 const App: React.FC = () => {
   return (
