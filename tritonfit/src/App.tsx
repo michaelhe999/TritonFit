@@ -12,6 +12,33 @@ import { ExercisesPage } from "./components/ExercisesPage";
 import { CreateAccount } from "./views/createAccount";
 import { SignIn } from "./views/signIn";
 
+function AuthCallback() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+
+    if (token) {
+      localStorage.setItem('token', token);
+      navigate('/');
+      window.location.reload();
+    } else {
+      navigate('/');
+    }
+  }, [navigate]);
+
+  return <div>Processing login...</div>;
+}
+
+function RedirectToGoogleAuth() {
+  useEffect(() => {
+    window.location.href = `${process.env.REACT_APP_SERVER_URL}/auth/google`;
+  }, []);
+
+  return null;
+}
+
 const App: React.FC = () => {
   return (
     <Router>
