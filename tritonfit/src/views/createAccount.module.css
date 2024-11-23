@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap');
+.createAccount {
+  font-family: 'Manrope';
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;  /* Align items to the top within the form */
+  flex-direction: column;
+  text-align: center;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;  /* Center the form horizontally */
+  box-sizing: border-box;
+}
+
+.createAccount * {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+.createAccount h1 {
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: black;
+  margin-bottom: 1.5rem;
+}
+
+.createAccount form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;  /* Make the form take up full available width */
+}
+
+.createAccount label {
+  font-weight: 300;
+  font-size: 1rem;
+  color: #555;
+  display: block;
+  text-align: left;
+}
+
+.createAccount .formLogo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+
+.createAccount input,
+.createAccount button,
+.createAccount textarea {
+  margin-bottom: 0.5rem;
+  padding: 0.8rem;
+  width: 100%;  /* Allow inputs and button to take up full width of the form */
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  background-color: #f9f9f9;
+  outline: none;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+}
+
+.createAccount input:focus,
+.createAccount textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.createAccount textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.createAccount button {
+  padding: 0.8rem;
+  font-size: 1rem;
+  background-color: #182b49;
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* Button width now matches form width */
+  margin-top: 1rem;  /* Add space between button and form */
+}
+
+.createAccount button:hover {
+  background-color: #1c3a5f;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.createAccount button:active {
+  background-color: #142236;
+}
+
+.createAccount button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 800px) {
+  .createAccount {
+    padding: 1.5rem;
+    margin: 0 auto;
+    max-width: 100%;  /* Allow the form to use most of the screen width */
+  }
+
+  .createAccount button {
+    margin-top: 1rem;  /* Ensures button has space between form fields */
+  }
+}

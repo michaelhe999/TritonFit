@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap');
+
+.SignIn {
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;  /* Align items to the top within the form */
+  flex-direction: column;
+  text-align: center;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;  /* Center the form horizontally */
+  box-sizing: border-box;
+}
+
+.SignIn * {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box; /* Reset box-sizing for child elements */
+}
+
+.app-logo {
+  width: 100%;
+  margin-top: 4rem;
+  height: auto;
+}
+
+.title {
+  font-family: "Anton";
+  font-weight: bold;
+  font-size: 40px;
+  color: black;
+  margin-bottom: 1.5rem;
+}
+
+.button {
+  padding: 0.8rem;
+  margin-top: 10rem;
+  font-size: 16px;
+  font-weight: 400;
+  background-color: #182B49;
+  color: #ffdc42;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: "Manrope";
+}
+
+.button:hover {
+  background-color: #1c3a5f;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button:active {
+  background-color: #142236;
+}
+
+.button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 800px) {
+  .SignIn {
+    padding: 1.5rem;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .button {
+    margin-bottom: 1rem;
+  }
+}

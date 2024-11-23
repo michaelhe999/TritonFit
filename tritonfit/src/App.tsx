@@ -9,6 +9,8 @@ import MeetOthers from "./components/dummy-pages/MeetOthers";
 import Profile from "./components/dummy-pages/Profile";
 import { RecommendedWorkouts } from "./views/RecommendedWorkouts";
 import { ExercisesPage } from "./components/ExercisesPage";
+import { CreateAccount } from "./views/createAccount";
+import { SignIn } from "./views/signIn";
 
 const App: React.FC = () => {
   return (
@@ -53,6 +55,8 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/recommendedWorkouts" element={<RecommendedWorkouts />} />
         <Route path="/exercises" element={<ExercisesPage />} />
+        <Route path="/createaccount" element={<CreateAccount />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/createWorkout" element={<CreateWorkout />} />
       </Routes>
     </Router>
