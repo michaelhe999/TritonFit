@@ -1,37 +1,61 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
+import helmet from 'helmet';
 import passport from 'passport';
 import authRoutes from './routes/auth';
 import './config/passport';
-
 import dotenv from 'dotenv';
-dotenv.config({ path: '../.env' });
+
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5001;
 
-// More detailed CORS configuration
+// Basic request logging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
+  next();
+});
+
+// CORS configuration
 app.use(cors({
-  origin: process.env.CLIENT_URL,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  origin: 'http://localhost:3000',
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['Set-Cookie']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
+// Content Security Policy configuration
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:", "https:"],
+        connectSrc: ["'self'", "http://localhost:5001"],
+      },
+    },
+  })
+);
+
+// Body parsers
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Passport middleware
 app.use(passport.initialize());
 
-// Update the auth routes to include the base path
+// Test route
+app.get('/test', (req, res) => {
+  res.json({ message: 'Server is running' });
+});
+
+// Auth routes
 app.use('/auth', authRoutes);
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/tritonfit')
-  .then(() => console.log('MongoDB connected successfully'))
-  .catch(err => console.error('MongoDB connection error:', err));
+const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log('Client URL:', process.env.CLIENT_URL);
-  console.log('Server URL:', process.env.SERVER_URL);
+  console.log(`Server running on port ${PORT}`);
 });

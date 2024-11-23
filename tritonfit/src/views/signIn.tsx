@@ -1,22 +1,12 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import appLogo from '../assets/appLogo.png';
 import styles from './signIn.module.css';
 
 export const SignIn = () => {
-  const navigate = useNavigate();
-
-  // Check if user is already authenticated on component mount
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/');
-    }
-  }, [navigate]);
-
   const handleGoogleSignIn = () => {
-    // Redirect to your backend's Google auth endpoint
-    window.location.href = `${process.env.REACT_APP_SERVER_URL}/auth/google`;
+    // Use full URL to ensure it goes to backend
+    const authUrl = 'http://localhost:5001/auth/google';
+    console.log('Redirecting to:', authUrl);
+    window.location.href = authUrl;
   };
 
   return (
