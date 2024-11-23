@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import passport from 'passport';
+import RecentWorkoutRouter from './routes/recentWorkoutRoutes';
 // import authRoutes from './routes/auth';
 //import './config/passport';
 
@@ -34,3 +35,5 @@ app.listen(PORT, () => {
   console.log('Client URL:', process.env.CLIENT_URL);
   console.log('Google callback URL:', `${process.env.SERVER_URL}/auth/google/callback`);
 });
+
+app.use('/recentWorkouts', RecentWorkoutRouter);
