@@ -55,6 +55,7 @@ passport.use(
         // Store isNewUser in user object
         newUser.set('isNewUser', true, { strict: false });
         console.log('New user created:', newUser.id);
+        
         done(null, newUser);
       } catch (error) {
         console.error('Error in Google strategy:', error);

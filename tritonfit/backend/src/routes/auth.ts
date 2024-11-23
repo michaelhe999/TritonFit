@@ -58,8 +58,8 @@ router.get('/google/callback',
         });
 
         console.log('Authentication successful, redirecting to client...');
-        const redirectPath = isNewUser ? '/createaccount' : '/home';
-        const redirectUrl = `${process.env.CLIENT_URL}/auth-callback?token=${token}&destination=${redirectPath}`;
+        // Always redirect through auth-callback
+        const redirectUrl = `${process.env.CLIENT_URL}/auth-callback?token=${token}`;
         
         console.log('Redirecting to:', redirectUrl);
         res.redirect(redirectUrl);
@@ -74,28 +74,26 @@ router.get('/google/callback',
 // User info route with more logging
 router.get('/user', 
   async (req, res) => {
-    console.log('\n[User Info] User info request received');
-    console.log('[User Info] Auth header:', req.headers.authorization);
-    
+    console.log('\n[User Info] Request received');
     try {
       const token = req.headers.authorization?.split(' ')[1];
       if (!token) {
-        console.log('[User Info] No token provided in request');
         return res.status(401).json({ message: 'No token provided' });
       }
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { userId: string };
-      console.log('[User Info] Decoded token userId:', decoded.userId);
-      
       const user = await User.findById(decoded.userId).select('-__v');
-      console.log('[User Info] Found user:', user ? user._id : 'no');
       
       if (!user) {
-        console.log('[User Info] User not found in database');
         return res.status(404).json({ message: 'User not found' });
       }
 
-      res.json(user);
+      // Check if profile is complete and send that info
+      const isProfileComplete = user.isProfileComplete || false;
+      res.json({
+        ...user.toJSON(),
+        isProfileComplete
+      });
     } catch (error) {
       console.error('[User Info] Error:', error);
       res.status(401).json({ message: 'Invalid token' });

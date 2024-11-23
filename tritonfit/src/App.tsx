@@ -12,6 +12,7 @@ import { ExercisesPage } from "./components/ExercisesPage";
 import { CreateAccount } from "./views/createAccount";
 import { SignIn } from "./views/signIn";
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthCallback, handleAuthToken } from './components/AuthCallback';
 
 // Protected Route component that checks for authentication
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -43,42 +44,26 @@ const WithNavbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 };
 
-function AuthCallback() {
+const AppRoutes = () => {
+  const { user, loading } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
+    // Check current route for token
+    const params = new URLSearchParams(location.search);
     const token = params.get('token');
-    const destination = params.get('destination') || '/home';
     
-    if (token) {
-      console.log('Token received in callback');
-      localStorage.setItem('token', token);
-      navigate(destination);
-    } else {
-      console.log('No token received in callback');
-      navigate('/');
+    if (token && location.pathname !== '/auth-callback') {
+      console.log('Token found in URL, storing and removing');
+      handleAuthToken(token);
+      // Remove token from URL
+      navigate(location.pathname, { replace: true });
     }
-  }, [navigate]);
-
-  return <div>Processing your sign in...</div>;
-}
-
-function AppRoutes() {
-  const { user, loading } = useAuth();
-  const location = useLocation();
+  }, [location, navigate]);
 
   if (loading) {
     return <div>Loading...</div>;
-  }
-
-  // Always allow these paths
-  const publicPaths = ['/', '/auth-callback'];
-  const isPublicPath = publicPaths.includes(location.pathname);
-
-  // Redirect to sign in if trying to access protected route without auth
-  if (!user && !isPublicPath) {
-    return <Navigate to="/" />;
   }
 
   return (
@@ -86,20 +71,22 @@ function AppRoutes() {
       {/* Public routes */}
       <Route path="/" element={<SignIn />} />
       <Route path="/auth-callback" element={<AuthCallback />} />
+      <Route path="/auth-error" element={<div>Authentication Error</div>} />
 
       {/* Protected routes */}
-      <Route path="/home" element={
-        <ProtectedRoute>
-          <WithNavbar>
-            <Home />
-          </WithNavbar>
-        </ProtectedRoute>
-      } />
       <Route path="/createaccount" element={
-        <ProtectedRoute>
-          <CreateAccount />
-        </ProtectedRoute>
+        user ? <CreateAccount /> : <Navigate to="/" replace />
       } />
+      <Route path="/home" element={
+        user ? (
+          <>
+            <Home />
+            <Navbar />
+          </>
+        ) : <Navigate to="/" replace />
+      } />
+
+      {/* Other protected routes */}
       <Route path="/findworkout" element={
         <ProtectedRoute>
           <WithNavbar>
