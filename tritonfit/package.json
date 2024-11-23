@@ -1,82 +1,45 @@
 {
-  "name": "tritonfit",
-  "version": "1.0.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/mongoose": "^5.11.96",
-    "@types/node": "^16.18.118",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@types/react-router-dom": "^5.3.3",
-    "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "express-session": "^1.18.1",
-    "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.10.0",
-    "mongoose": "^8.8.0",
-    "passport": "^0.7.0",
-    "passport-google-oauth20": "^2.0.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.27.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
-  "scripts": {
-    "start-all": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
-    "start:frontend": "cd frontend && npm start",
-    "start:backend": "cd backend && npm start",
-    "install:all": "cd frontend && npm install && cd ../backend && npm install",
-    "build-all": "cd frontend && npm run build && cd ../backend && npm run build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --watchAll --testMatch **/src/**/*.test.tsx",
-    "eject": "react-scripts eject",
-    "start server": "node dist/server.js",
-    "dev": "nodemon src/server.ts",
-    "build server": "tsc"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.0.1",
-    "@types/cookie-parser": "^1.4.7",
-    "@types/cors": "^2.8.12",
-    "@types/express": "^4.17.13",
-    "@types/express-session": "^1.18.0",
-    "@types/jsonwebtoken": "^9.0.7",
-    "@types/passport": "^1.0.17",
-    "@types/passport-google-oauth20": "^2.0.16",
-    "jest": "^27.5.1",
-    "nodemon": "^2.0.14",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.4.4"
-  }
+    "name": "tritonfit-frontend",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@testing-library/jest-dom": "^5.17.0",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/user-event": "^13.5.0",
+        "@types/jest": "^27.5.2",
+        "@types/node": "^16.18.0",
+        "@types/react": "^18.2.0",
+        "@types/react-dom": "^18.2.0",
+        "@types/react-router-dom": "^5.3.3",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.28.0",
+        "react-scripts": "5.0.1",
+        "typescript": "^4.9.5",
+        "web-vitals": "^2.1.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
 }
