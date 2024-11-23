@@ -22,8 +22,8 @@ export interface Exercise {
     reps: string
 } 
 
-export interface user {
-    id: number,
+export interface userProfile {
+    // id: number,
     firstName: string,
     lastName: string,
     email: string,
