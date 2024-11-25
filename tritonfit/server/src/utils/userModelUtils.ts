@@ -1,13 +1,17 @@
 import { Response, Request } from 'express';
-import User from '../models/userModel';
+import Users from '../models/userModel';
 import { userProfile } from '../types';
 
 export async function getUser(req: Request, res: Response, id: string) {
     try {
-        const userInfo = await User.find({ email: id });
+        console.log("ID received:", id);
+        const userInfo = await Users.findOne({ email: id });
+        console.log("Query executed:", { email: id });
+        if (!userInfo) {
+            return res.status(404).json({ message: "User not found" });
+        }
         res.status(200).json(userInfo);
-    }
-    catch (err) {
+    } catch (err) {
         res.status(500).json({ message: "Failed to fetch user", error: err});
     }
 }
@@ -34,8 +38,8 @@ export async function editUser(req: Request, res: Response, id: string) {
             return res.status(400).send({error: "Missing required fields"});
         }
 
-        const updatedUser = await User.findOneAndUpdate(
-            { user: id },
+        const updatedUser = await Users.findOneAndUpdate(
+            { email: id },
             {
                 $set: { firstName: firstName, 
                     lastName: lastName, 

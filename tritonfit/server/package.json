@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
- "scripts": {
-  "start": "ts-node src/index.ts",
-  "build": "tsc"
-},
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

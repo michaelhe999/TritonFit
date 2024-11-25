@@ -22,6 +22,6 @@ const UserSchema: Schema = new Schema<IUser>({
     aboutMe: { type: String, required: true},
 });
 
-const User = mongoose.model<IUser>("User", UserSchema);
+const Users = mongoose.model<IUser>("Users", UserSchema, "Users");
 
-export default User;
+export default Users;
