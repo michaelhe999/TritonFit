@@ -5,6 +5,7 @@ import { SingleWorkout } from "../components/SingleWorkout";
 import { SearchBar } from "../components/SearchBar";
 import { Workout, Difficulty } from "../types/workout";
 import { Exercise } from "../types/exercise";
+import { NavLink } from "react-router-dom";
 
 // Exercises and workouts are hard coded until database is integrated; remove once database integrated
 const fakeExercise: Exercise[] = [
@@ -159,13 +160,13 @@ export const FindAWorkout = () => {
         )}
       </div>
 
-      <button
+      <NavLink
+        to="/createWorkout"
         data-testid="generateWorkoutButton"
         className={styles.generateButton}
       >
-        {" "}
-        Generate new workout
-      </button>
+        <p>Generate new workout</p>
+      </NavLink>
     </div>
   );
 };
