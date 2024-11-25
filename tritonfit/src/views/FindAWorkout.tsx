@@ -163,9 +163,9 @@ export const FindAWorkout = () => {
       <NavLink
         to="/createWorkout"
         data-testid="generateWorkoutButton"
-        className={styles.generateButton}
+        
       >
-        <p>Generate new workout</p>
+        <p className={styles.generateButton}>Generate new workout</p>
       </NavLink>
     </div>
   );
