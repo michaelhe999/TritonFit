@@ -5,6 +5,7 @@ import cors from 'cors';
 import passport from 'passport';
 import RecentWorkoutRouter from './routes/recentWorkoutRoutes';
 import SavedWorkoutRouter from './routes/savedWorkoutRoutes';
+import UserRouter from "./routes/userRoutes";
 // import authRoutes from './routes/auth';
 //import './config/passport';
 
@@ -39,3 +40,4 @@ app.listen(PORT, () => {
 
 app.use('/recentWorkouts', RecentWorkoutRouter);
 app.use('/savedWorkouts', SavedWorkoutRouter);
+app.use('/users', UserRouter);
