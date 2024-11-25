@@ -162,6 +162,7 @@ export const FindAWorkout = () => {
 
       <NavLink
         to="/createWorkout"
+        style={{ textDecoration: 'none' }}
         data-testid="generateWorkoutButton"
         
       >
