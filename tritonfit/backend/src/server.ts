@@ -3,10 +3,12 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import passport from 'passport';
 import authRoutes from './routes/auth';
-import './config/passport';
+//import './config/passport';
+import RecentWorkoutRouter from './routes/recentWorkoutRoutes';
+import SavedWorkoutRouter from './routes/savedWorkoutRoutes';
 
 import dotenv from 'dotenv';
-dotenv.config({ path: '../.env' });
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -35,3 +37,6 @@ app.listen(PORT, () => {
   console.log('Client URL:', process.env.CLIENT_URL);
   console.log('Server URL:', process.env.SERVER_URL);
 });
+
+app.use('/recentWorkouts', RecentWorkoutRouter);
+app.use('/savedWorkouts', SavedWorkoutRouter);
