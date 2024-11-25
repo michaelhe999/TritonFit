@@ -12,6 +12,6 @@ const MainWorkoutSchema: Schema = new Schema<IWorkout>({
   workoutData: { type: [Object], default: [] }, 
 });
 
-const RecentWorkouts = mongoose.model<IWorkout>("recent_workout", MainWorkoutSchema);
+const RecentWorkouts = mongoose.model<IWorkout>("saved_workouts", MainWorkoutSchema);
 
 export default RecentWorkouts;

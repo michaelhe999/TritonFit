@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import passport from 'passport';
 import RecentWorkoutRouter from './routes/recentWorkoutRoutes';
+import SavedWorkoutRouter from './routes/savedWorkoutRoutes';
 // import authRoutes from './routes/auth';
 //import './config/passport';
 
@@ -37,3 +38,4 @@ app.listen(PORT, () => {
 });
 
 app.use('/recentWorkouts', RecentWorkoutRouter);
+app.use('/savedWorkouts', SavedWorkoutRouter);
