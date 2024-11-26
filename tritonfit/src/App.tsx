@@ -12,27 +12,86 @@ import { ExercisesPage } from "./components/ExercisesPage";
 import { CreateAccount } from "./views/createAccount";
 import { SignIn } from "./views/signIn";
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { AuthCallback, handleAuthToken } from './components/AuthCallback';
 
-// Protected Route component that checks for authentication
+// Token handler component
+const TokenHandler: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { refreshUser } = useAuth();
+
+  useEffect(() => {
+    const handleToken = async () => {
+      const params = new URLSearchParams(location.search);
+      const token = params.get('token');
+      const error = params.get('error');
+
+      if (error) {
+        console.error('Auth error:', error);
+        navigate('/', { replace: true });
+        return;
+      }
+
+      if (token) {
+        try {
+          // Store token
+          localStorage.setItem('token', token);
+          
+          // Refresh user data
+          await refreshUser();
+          
+          // Get user data to check profile completion
+          const response = await fetch('http://localhost:5001/auth/user', {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+          }
+
+          const userData = await response.json();
+          
+          // Remove token from URL and navigate
+          const targetPath = userData.isProfileComplete ? '/home' : '/createaccount';
+          navigate(targetPath, { replace: true });
+        } catch (error) {
+          console.error('Error processing token:', error);
+          localStorage.removeItem('token');
+          navigate('/', { replace: true });
+        }
+      }
+    };
+
+    handleToken();
+  }, [location, navigate, refreshUser]);
+
+  return null;
+};
+
+// Protected Route component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   
   useEffect(() => {
     if (!loading && !user) {
-      navigate('/');
+      navigate('/', { replace: true });
     }
   }, [user, loading, navigate]);
   
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div>Loading...</div>
+      </div>
+    );
   }
   
   return user ? <>{children}</> : null;
 };
 
-// Layout component to handle common layout with navbar
+// Layout component with navbar
 const WithNavbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
   
@@ -46,86 +105,87 @@ const WithNavbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const AppRoutes = () => {
   const { user, loading } = useAuth();
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Check current route for token
-    const params = new URLSearchParams(location.search);
-    const token = params.get('token');
-    
-    if (token && location.pathname !== '/auth-callback') {
-      console.log('Token found in URL, storing and removing');
-      handleAuthToken(token);
-      // Remove token from URL
-      navigate(location.pathname, { replace: true });
-    }
-  }, [location, navigate]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div>Loading...</div>
+      </div>
+    );
   }
 
   return (
-    <Routes>
-      {/* Public routes */}
-      <Route path="/" element={<SignIn />} />
-      <Route path="/auth-callback" element={<AuthCallback />} />
-      <Route path="/auth-error" element={<div>Authentication Error</div>} />
+    <>
+      <TokenHandler />
+      <Routes>
+        {/* Public routes */}
+        <Route path="/" element={user ? <Navigate to="/home" replace /> : <SignIn />} />
+        <Route path="/auth-error" element={<div>Authentication Error</div>} />
 
-      {/* Protected routes */}
-      <Route path="/createaccount" element={
-        user ? <CreateAccount /> : <Navigate to="/" replace />
-      } />
-      <Route path="/home" element={
-        user ? (
-          <>
-            <Home />
-            <Navbar />
-          </>
-        ) : <Navigate to="/" replace />
-      } />
+        {/* Protected routes */}
+        <Route path="/createaccount" element={
+          <ProtectedRoute>
+            <CreateAccount />
+          </ProtectedRoute>
+        } />
+        <Route path="/home" element={
+          <ProtectedRoute>
+            <WithNavbar>
+              <Home />
+            </WithNavbar>
+          </ProtectedRoute>
+        } />
 
-      {/* Other protected routes */}
-      <Route path="/findworkout" element={
-        <ProtectedRoute>
-          <WithNavbar>
-            <FindAWorkout />
-          </WithNavbar>
-        </ProtectedRoute>
-      } />
-      <Route path="/meetothers" element={
-        <ProtectedRoute>
-          <WithNavbar>
-            <MeetOthers />
-          </WithNavbar>
-        </ProtectedRoute>
-      } />
-      <Route path="/profile" element={
-        <ProtectedRoute>
-          <WithNavbar>
-            <Profile />
-          </WithNavbar>
-        </ProtectedRoute>
-      } />
-      <Route path="/recommendedWorkouts" element={
-        <ProtectedRoute>
-          <RecommendedWorkouts />
-        </ProtectedRoute>
-      } />
-      <Route path="/exercises" element={
-        <ProtectedRoute>
-          <ExercisesPage />
-        </ProtectedRoute>
-      } />
-      <Route path="/createWorkout" element={
-        <ProtectedRoute>
-          <CreateWorkout />
-        </ProtectedRoute>
-      } />
-    </Routes>
+        {/* Other protected routes */}
+        <Route path="/findworkout" element={
+          <ProtectedRoute>
+            <WithNavbar>
+              <FindAWorkout />
+            </WithNavbar>
+          </ProtectedRoute>
+        } />
+        <Route path="/meetothers" element={
+          <ProtectedRoute>
+            <WithNavbar>
+              <MeetOthers />
+            </WithNavbar>
+          </ProtectedRoute>
+        } />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <WithNavbar>
+              <Profile />
+            </WithNavbar>
+          </ProtectedRoute>
+        } />
+        <Route path="/recommendedWorkouts" element={
+          <ProtectedRoute>
+            <WithNavbar>
+              <RecommendedWorkouts />
+            </WithNavbar>
+          </ProtectedRoute>
+        } />
+        <Route path="/exercises" element={
+          <ProtectedRoute>
+            <WithNavbar>
+              <ExercisesPage />
+            </WithNavbar>
+          </ProtectedRoute>
+        } />
+        <Route path="/createWorkout" element={
+          <ProtectedRoute>
+            <WithNavbar>
+              <CreateWorkout />
+            </WithNavbar>
+          </ProtectedRoute>
+        } />
+
+        {/* Catch all route */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
   );
-}
+};
 
 const App: React.FC = () => {
   return (
