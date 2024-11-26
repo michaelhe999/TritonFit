@@ -1,15 +1,16 @@
 import styles from './components.module.css';
 import rightArrow from "../assets/rightArrow.svg"
-import { Workout, Difficulty } from "../types/workout";
+import { Workout, Difficulty, WorkoutList } from "../types/workout";
 import { Exercise } from '../types/exercise';
 import { useNavigate } from "react-router-dom";
 
 interface SingleWorkoutProps {
     workout: Workout,
     exercises: Exercise[],
+    workoutList?: WorkoutList
 }
 
-export const SingleWorkout = ({ workout, exercises}: SingleWorkoutProps) => {
+export const SingleWorkout = ({ workout, exercises, workoutList}: SingleWorkoutProps) => {
     const navigate = useNavigate();
     
     //Determine color of difficulty for CSS purposes
@@ -27,7 +28,7 @@ export const SingleWorkout = ({ workout, exercises}: SingleWorkoutProps) => {
     };
 
     const handleOnClick = () => {
-        navigate("/exercises", { state: { exercises, workout } });
+        navigate("/exercises", { state: { exercises, workout, workoutList } });
     };
 
     return (

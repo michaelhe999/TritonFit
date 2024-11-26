@@ -4,7 +4,7 @@ import dumbellIcon from "../assets/dumbellFindWorkoutPage.svg";
 import { SingleWorkout } from "../components/SingleWorkout";
 import { SearchBar } from "../components/SearchBar";
 import { Workout } from "../types/workout";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { getRecentWorkouts, getSavedWorkouts } from "utils/recentAndSavedWorkouts-util";
 
 const fakeUserId: string = "000000000000000000000001";
@@ -22,7 +22,6 @@ const NoWorkoutRender = () => {
 };
 
 export const FindAWorkout = () => {
-  const location = useLocation();
 
   const [savedWorkouts, setSavedWorkouts] = useState<Workout[]>([]);
   const [recentWorkouts, setRecentWorkouts] = useState<Workout[]>([]);

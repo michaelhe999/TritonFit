@@ -12,11 +12,12 @@ export const ExercisesPage = () => {
     const location = useLocation();
     const exercises:Exercise[] = location.state?.exercises || [];
     const workout:Workout= location.state?.workout || null;
+    const workoutList:Workout[]= location.state?.workoutList || null;
 
     const navigate = useNavigate();
 
     const handleBack = () => {
-        navigate(-1);
+        navigate("/recommendedWorkouts", { state: { workoutList } });
     };
 
     return (
