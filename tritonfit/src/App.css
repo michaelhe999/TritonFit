@@ -1,6 +1,5 @@
 .app-content {
-  text-align: center;
-  padding: 0px 0px 80px; 
+  text-align: center;  
 }
 
 .App-header {
@@ -12,8 +11,4 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.app-content {
-  padding-bottom: 76px;
 }

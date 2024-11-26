@@ -1,44 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./FindAWorkout.module.css";
 import dumbellIcon from "../assets/dumbellFindWorkoutPage.svg";
 import { SingleWorkout } from "../components/SingleWorkout";
 import { SearchBar } from "../components/SearchBar";
-import { Workout, Difficulty } from "../types/workout";
-import { Exercise } from "../types/exercise";
-import { NavLink } from "react-router-dom";
+import { Workout } from "../types/workout";
+import { NavLink, useLocation } from "react-router-dom";
+import { getRecentWorkouts, getSavedWorkouts } from "utils/recentAndSavedWorkouts-util";
 
-// Exercises and workouts are hard coded until database is integrated; remove once database integrated
-const fakeExercise: Exercise[] = [
-  {
-    name: "Pushup",
-    sets: 3,
-    reps: "4-6",
-  },
-];
-
-const fakeWorkout: Workout[] = [
-  {
-    workoutName: "Back Builder",
-    workoutDescription: "HIIT for back",
-    workoutDuration: 30,
-    workoutDifficulty: Difficulty.INTERMEDIATE,
-    exercises: fakeExercise,
-  },
-  {
-    workoutName: "Chest Strength",
-    workoutDescription: "HIIT for chest",
-    workoutDuration: 60,
-    workoutDifficulty: Difficulty.ADVANCED,
-    exercises: fakeExercise,
-  },
-  {
-    workoutName: "Full Body",
-    workoutDescription: "HIIT for full body",
-    workoutDuration: 45,
-    workoutDifficulty: Difficulty.BEGINNER,
-    exercises: fakeExercise,
-  },
-];
+const fakeUserId: string = "000000000000000000000001";
 
 const NoWorkoutRender = () => {
   return (
@@ -53,11 +22,49 @@ const NoWorkoutRender = () => {
 };
 
 export const FindAWorkout = () => {
+  const location = useLocation();
+
+  const [savedWorkouts, setSavedWorkouts] = useState<Workout[]>([]);
+  const [recentWorkouts, setRecentWorkouts] = useState<Workout[]>([]);
+  const [filteredRecentExercises, setFilteredRecentExercises] =
+    useState<Workout[]>(recentWorkouts);
+  const [filteredSavedExercises, setFilteredSavedExercises] =
+    useState<Workout[]>(savedWorkouts);
+
+  useEffect(() => {
+    loadRecentWorkouts();
+    loadSavedWorkouts();
+  }, [] );
+
+
+  useEffect(() => {
+    setFilteredRecentExercises(recentWorkouts);
+  }, [recentWorkouts]);
+
+  useEffect(() => {
+    setFilteredSavedExercises(savedWorkouts);
+  }, [savedWorkouts]);
+
+  const loadRecentWorkouts = async () => {
+    try {
+      const updatedWorkouts = await getRecentWorkouts(fakeUserId);
+      setRecentWorkouts(updatedWorkouts);
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+
+  const loadSavedWorkouts = async () => {
+    try {
+      const updatedWorkouts = await getSavedWorkouts(fakeUserId);
+      setSavedWorkouts(updatedWorkouts);
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+
   const [recentWorkoutClicked, setRecentWorkoutClicked] =
     useState<boolean>(true);
-
-  const [savedWorkouts, setSavedWorkouts] = useState<Workout[]>(fakeWorkout);
-  const [recentWorkouts, setRecentWorkouts] = useState<Workout[]>(fakeWorkout);
 
   const handleRecentWorkoutClick = () => {
     setRecentWorkoutClicked(true);
@@ -68,11 +75,6 @@ export const FindAWorkout = () => {
     setRecentWorkoutClicked(false);
     resetSearch();
   };
-
-  const [filteredRecentExercises, setFilteredRecentExercises] =
-    useState<Workout[]>(recentWorkouts);
-  const [filteredSavedExercises, setFilteredSavedExercises] =
-    useState<Workout[]>(savedWorkouts);
 
   const handleRecentSearchResults = (results: Workout[]) => {
     setFilteredRecentExercises(results);
