@@ -16,7 +16,7 @@ interface AuthContextType {
   logout: () => void;
   isAuthenticated: boolean;
   setUser: (user: User | null) => void; // Add setter for direct user updates
-  checkProfileStatus: () => Promise<boolean>; // Add profile status checker
+  checkProfileStatus: () => Promise<boolean>;
 }
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
@@ -57,7 +57,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (response.ok) {
         const userData = await response.json();
         setUser(userData);
-        return userData; // Return user data for external use
+        
+        // If user data is loaded successfully and we're on the loading page,
+        // redirect to home
+        if (window.location.pathname === '/') {
+          window.location.href = '/home';
+        }
+        
+        return userData;
       } else {
         if (response.status === 401) {
           console.log('Token invalid, logging out');
@@ -68,13 +75,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (error) {
       console.error('Error loading user:', error);
       logout();
-      throw error; // Rethrow for external handling
+      throw error;
     } finally {
       setLoading(false);
     }
   };
 
-  // Check if user profile is complete
   const checkProfileStatus = async (): Promise<boolean> => {
     try {
       const userData = await loadUser();
@@ -85,22 +91,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Refresh user data - useful after profile updates
+  // Keep your existing functions, but update refreshUser
   const refreshUser = async () => {
     setLoading(true);
     try {
-      await loadUser();
+      const userData = await loadUser();
+      if (userData) {
+        // If we successfully loaded user data, check if we should redirect
+        if (window.location.pathname === '/') {
+          window.location.href = '/home';
+        }
+      }
     } catch (error) {
       console.error('Error refreshing user:', error);
     }
   };
 
-  // Enhanced logout function with cleanup
+  // Update your logout function
   const logout = () => {
     localStorage.removeItem('token');
     setUser(null);
-    // Clean up any other auth-related state here
-    window.location.href = '/';
+    // Only redirect to signin if we're not already there
+    if (window.location.pathname !== '/') {
+      window.location.href = '/';
+    }
   };
 
   // Load user on mount and token changes
@@ -159,7 +173,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       refreshUser,
       logout,
       isAuthenticated: !!user,
-      setUser,
+      setUser, 
       checkProfileStatus
     }}>
       {children}
@@ -167,7 +181,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-// Enhanced protected route HOC with loading state
+// Update your withAuth HOC
 export const withAuth = <P extends object>(
   WrappedComponent: React.ComponentType<P>
 ) => {
@@ -183,7 +197,14 @@ export const withAuth = <P extends object>(
     }
     
     if (!user) {
+      // If no user is found after loading, redirect to signin
       window.location.href = '/';
+      return null;
+    }
+    
+    // If we have a user but we're on the signin page, redirect to home
+    if (window.location.pathname === '/') {
+      window.location.href = '/home';
       return null;
     }
     

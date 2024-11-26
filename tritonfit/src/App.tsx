@@ -116,68 +116,61 @@ const AppRoutes = () => {
 
   return (
     <>
-      <TokenHandler />
       <Routes>
-        {/* Public routes */}
-        <Route path="/" element={user ? <Navigate to="/home" replace /> : <SignIn />} />
+      {/* Public routes */}
+      <Route path="/" element={
+        loading ? (
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+          </div>
+        ) : user ? (
+          <Navigate to="/home" replace />
+        ) : (
+          <SignIn />
+        )
+      } />
         <Route path="/auth-error" element={<div>Authentication Error</div>} />
 
         {/* Protected routes */}
         <Route path="/createaccount" element={
-          <ProtectedRoute>
             <CreateAccount />
-          </ProtectedRoute>
         } />
         <Route path="/home" element={
-          <ProtectedRoute>
             <WithNavbar>
               <Home />
             </WithNavbar>
-          </ProtectedRoute>
         } />
 
         {/* Other protected routes */}
         <Route path="/findworkout" element={
-          <ProtectedRoute>
             <WithNavbar>
               <FindAWorkout />
             </WithNavbar>
-          </ProtectedRoute>
         } />
         <Route path="/meetothers" element={
-          <ProtectedRoute>
             <WithNavbar>
               <MeetOthers />
             </WithNavbar>
-          </ProtectedRoute>
         } />
         <Route path="/profile" element={
-          <ProtectedRoute>
             <WithNavbar>
               <Profile />
             </WithNavbar>
-          </ProtectedRoute>
         } />
         <Route path="/recommendedWorkouts" element={
-          <ProtectedRoute>
             <WithNavbar>
               <RecommendedWorkouts />
             </WithNavbar>
-          </ProtectedRoute>
         } />
         <Route path="/exercises" element={
-          <ProtectedRoute>
             <WithNavbar>
               <ExercisesPage />
             </WithNavbar>
-          </ProtectedRoute>
         } />
         <Route path="/createWorkout" element={
-          <ProtectedRoute>
             <WithNavbar>
               <CreateWorkout />
             </WithNavbar>
-          </ProtectedRoute>
         } />
 
         {/* Catch all route */}

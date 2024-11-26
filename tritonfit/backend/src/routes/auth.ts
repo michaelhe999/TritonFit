@@ -46,9 +46,17 @@ router.get('/google/callback',
           process.env.JWT_SECRET!,
           { expiresIn: '7d' }
         );
-
+        if (!user.isProfileComplete) {
+          console.log('Temporarily redirect to home:', `${process.env.CLIENT_URL}/home`);
+          res.redirect(`${process.env.CLIENT_URL}/home`);
+          // console.log('Redirecting to:', `${process.env.CLIENT_URL}/createaccount`);
+          // res.redirect(`${process.env.CLIENT_URL}/createaccount`);
+        }
+        else {
         console.log('Redirecting to:', `${process.env.CLIENT_URL}?token=${token}`);
-        res.redirect(`${process.env.CLIENT_URL}?token=${token}`);
+        //res.redirect(`${process.env.CLIENT_URL}?token=${token}`);
+        res.redirect(`${process.env.CLIENT_URL}/home`);
+        }
       } catch (error) {
         console.error('Token Error:', error);
         res.redirect(`${process.env.CLIENT_URL}?error=token_error`);

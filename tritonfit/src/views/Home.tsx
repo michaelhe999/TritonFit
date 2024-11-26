@@ -5,9 +5,12 @@ import Hours from "../components/Homepage/Hours";
 
 import Notification from "../assets/notification-button.svg";
 import Trends from "../assets/trends.svg";
+import { useUserData } from '../hooks/useUserData';
 
 const Home: React.FC = () => {
-  const user = "Jane";
+
+  const { userData: specificData } = useUserData(['name', 'email', 'picture']);
+  const user = specificData?.name || 'Jane Doe';
 
   const hoursData: { [day: string]: number } = {
     Sun: 0,

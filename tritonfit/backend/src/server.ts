@@ -5,9 +5,11 @@ import cors from 'cors';
 import passport from 'passport';
 import session from 'express-session';
 import authRoutes from './routes/auth';
-import { verifyToken, AuthRequest } from './routes/verify';
+import { verifyToken, AuthRequest } from './middleware/verify';
 import './config/passport';
 import dotenv from 'dotenv';
+import userRoutes from './routes/user';
+
 
 dotenv.config({ path: '.env' });
 
@@ -57,6 +59,8 @@ app.use('/auth', authRoutes);
 
 // Protected routes
 const protectedRouter = express.Router();
+
+protectedRouter.use('/user', userRoutes);
 
 // Middleware to verify token for all protected routes
 protectedRouter.use((req: Request, res: Response, next: NextFunction) => {
