@@ -6,6 +6,7 @@ import authRoutes from './routes/auth';
 //import './config/passport';
 import RecentWorkoutRouter from './routes/recentWorkoutRoutes';
 import SavedWorkoutRouter from './routes/savedWorkoutRoutes';
+import UserRouter from './routes/userRoutes';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -40,3 +41,4 @@ app.listen(PORT, () => {
 
 app.use('/recentWorkouts', RecentWorkoutRouter);
 app.use('/savedWorkouts', SavedWorkoutRouter);
+app.use('/user', UserRouter);
