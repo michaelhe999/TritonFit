@@ -5,7 +5,7 @@ import { SingleWorkout } from "../components/SingleWorkout";
 import { SearchBar } from "../components/SearchBar";
 import { Workout } from "../types/workout";
 import { NavLink } from "react-router-dom";
-import { getRecentWorkouts, getSavedWorkouts } from "utils/recentAndSavedWorkouts-util";
+import { getRecentWorkouts, getSavedWorkouts, deleteSavedWorkouts } from "utils/recentAndSavedWorkouts-util";
 
 const fakeUserId: string = "000000000000000000000001";
 
@@ -57,6 +57,15 @@ export const FindAWorkout = () => {
     try {
       const updatedWorkouts = await getSavedWorkouts(fakeUserId);
       setSavedWorkouts(updatedWorkouts);
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+
+  const clearSavedWorkouts = async () => {
+    try {
+      await deleteSavedWorkouts(fakeUserId);
+      loadSavedWorkouts();
     } catch (err: any) {
       console.log(err.message);
     }
@@ -137,10 +146,28 @@ export const FindAWorkout = () => {
                   />
                 ))}
               </div>
+              <NavLink
+                to="/createWorkout"
+                style={{ textDecoration: 'none' }}
+                data-testid="generateWorkoutButton"
+                
+              >
+                <p className={styles.generateButton}>Generate new workout</p>
+              </NavLink>
             </>
           )
         ) : savedWorkouts?.length === 0 ? (
-          <NoWorkoutRender />
+          <>
+            <NoWorkoutRender />
+            <NavLink
+                to="/createWorkout"
+                style={{ textDecoration: 'none' }}
+                data-testid="generateWorkoutButton"
+                
+              >
+                <p className={styles.generateButton}>Generate new workout</p>
+              </NavLink>
+          </>
         ) : (
           <>
             <SearchBar
@@ -157,18 +184,10 @@ export const FindAWorkout = () => {
                 />
               ))}
             </div>
+            <button onClick = {clearSavedWorkouts} className={styles.generateButton}>Clear saved workouts</button>
           </>
         )}
       </div>
-
-      <NavLink
-        to="/createWorkout"
-        style={{ textDecoration: 'none' }}
-        data-testid="generateWorkoutButton"
-        
-      >
-        <p className={styles.generateButton}>Generate new workout</p>
-      </NavLink>
     </div>
   );
 };
