@@ -23,7 +23,7 @@ export const addRecentWorkout  = async (id: string, workout:Workout): Promise<Wo
     	headers: {
         	"Content-Type": "application/json",
     	},
-        body: JSON.stringify(workout),
+        body: JSON.stringify({workout}),
 	});
 	if (!response.ok) {
     	throw new Error("Failed to add workouts");
@@ -55,7 +55,7 @@ export const addSavedWorkout  = async (id: string, workout:Workout): Promise<Wor
     	headers: {
         	"Content-Type": "application/json",
     	},
-        body: JSON.stringify(workout),
+        body: JSON.stringify({workout}),
 	});
 	if (!response.ok) {
     	throw new Error("Failed to add workouts");

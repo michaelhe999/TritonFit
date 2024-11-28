@@ -7,12 +7,14 @@ import whiteLeftArrow from '../../assets/whiteLeftArrow.svg';
 import styles from './components.module.css';
 import { Workout } from '../../types/workout';
 import { SingleExercise } from './SingleExercise';
+import EndOfWorkoutDialog from 'components/WorkoutRelated/EndOfWorkoutDialog';
 
 export const ExercisesPage = () => {
     const location = useLocation();
     const exercises:Exercise[] = location.state?.exercises || [];
-    const workout:Workout= location.state?.workout || null;
+    const workout:Workout= location.state.workout || null;
     const workoutList:Workout[]= location.state?.workoutList || null;
+    const id: string = location.state?.id || '';
 
     const navigate = useNavigate();
 
@@ -66,7 +68,7 @@ export const ExercisesPage = () => {
                     </div>
                 ))}
             </div>
-            <button className= {styles.finishWorkoutButton}> Finish Workout</button>
+            <EndOfWorkoutDialog workout={workout} id = {id}></EndOfWorkoutDialog>
         </div>
     );
 };

@@ -143,6 +143,7 @@ export const FindAWorkout = () => {
                   <SingleWorkout
                     workout={currWorkout}
                     exercises={currWorkout.exercises}
+                    id = {fakeUserId}
                   />
                 ))}
               </div>
@@ -181,6 +182,7 @@ export const FindAWorkout = () => {
                 <SingleWorkout
                   workout={currWorkout}
                   exercises={currWorkout.exercises}
+                  id = {fakeUserId}
                 />
               ))}
             </div>

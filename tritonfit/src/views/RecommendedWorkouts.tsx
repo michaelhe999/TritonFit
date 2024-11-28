@@ -25,6 +25,7 @@ export const RecommendedWorkouts = () => {
     const location = useLocation();
     const workoutData:WorkoutFormResponses = location.state?.data || sampleResponse;
     const prevWorkoutList:WorkoutList = location.state?.workoutList || null;
+    const id: string = location.state?.id || '';
 
     useEffect(() => {
         if (!prevWorkoutList) {
@@ -59,7 +60,7 @@ export const RecommendedWorkouts = () => {
                     
                     <h1 className = {styles.header} >Recommended Workouts For You</h1>
                     {workouts.workouts.map((workout) => {
-                        return <SingleWorkout workout={workout} exercises={workout.exercises} workoutList={workouts}/>
+                        return <SingleWorkout workout={workout} exercises={workout.exercises} workoutList={workouts} id = {id}/>
                     })}
                 </div>
 

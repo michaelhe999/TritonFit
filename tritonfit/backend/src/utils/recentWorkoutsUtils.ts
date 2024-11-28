@@ -22,7 +22,7 @@ export async function addRecentWorkout(req: Request, res: Response, id: string) 
         const updatedWorkout = await RecentWorkouts.findOneAndUpdate(
             { user: id },
             {
-                $push: { workoutData: workout }, 
+                $addToSet: { workoutData: workout }, 
             },
             { upsert: true, new: true}
         );

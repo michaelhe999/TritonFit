@@ -8,9 +8,10 @@ interface SingleWorkoutProps {
     workout: Workout,
     exercises: Exercise[],
     workoutList?: WorkoutList
+    id: string
 }
 
-export const SingleWorkout = ({ workout, exercises, workoutList}: SingleWorkoutProps) => {
+export const SingleWorkout = ({ workout, exercises, workoutList, id}: SingleWorkoutProps) => {
     const navigate = useNavigate();
     
     //Determine color of difficulty for CSS purposes
@@ -28,7 +29,7 @@ export const SingleWorkout = ({ workout, exercises, workoutList}: SingleWorkoutP
     };
 
     const handleOnClick = () => {
-        navigate("/exercises", { state: { exercises, workout, workoutList } });
+        navigate("/exercises", { state: { exercises, workout, workoutList, id } });
     };
 
     return (

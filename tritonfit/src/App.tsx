@@ -81,12 +81,21 @@ const App: React.FC = () => {
               </>
             }
           />
+          <Route 
+            path="/exercises" 
+            element={
+            <>
+            <ExercisesPage />
+            <Navbar />
+            </>
+            } 
+          />
         </Routes>
       </div>
       {/* Routes that don't include the Navbar */}
       <Routes>
         <Route path="/recommendedWorkouts" element={<RecommendedWorkouts />} />
-        <Route path="/exercises" element={<ExercisesPage />} />
+        
         <Route path="/createaccount" element={<CreateAccount />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/createWorkout" element={<CreateWorkout />} />

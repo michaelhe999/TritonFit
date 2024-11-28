@@ -9,7 +9,6 @@ import { StepFive } from "../components/createWorkout/workoutFormSteps/StepFive"
 import leftArrow from "../assets/leftArrow.svg"
 import { NavLink, useNavigate } from "react-router-dom"
 import { WorkoutFormResponses } from "../types/workout"
-import { RecommendedWorkouts } from "./RecommendedWorkouts"
 
 const INITIAL_DATA: WorkoutFormResponses = {
     gender: "",
