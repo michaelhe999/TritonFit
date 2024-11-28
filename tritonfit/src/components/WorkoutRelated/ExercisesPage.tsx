@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Exercise } from '../types/exercise';
-import headerImgForWorkout from '../assets/headerImgForWorkout.svg';
-import alarmIcon from '../assets/alarmIcon.svg';
-import runningManIcon from '../assets/runningManIcon.svg';
-import whiteLeftArrow from '../assets/whiteLeftArrow.svg'
-import styles from './components.module.css'
-import { Workout } from '../types/workout';
+import { Exercise } from '../../types/exercise';
+import headerImgForWorkout from '../../assets/headerImgForWorkout.svg';
+import alarmIcon from '../../assets/alarmIcon.svg';
+import runningManIcon from '../..//assets/runningManIcon.svg';
+import whiteLeftArrow from '../../assets/whiteLeftArrow.svg';
+import styles from './components.module.css';
+import { Workout } from '../../types/workout';
 import { SingleExercise } from './SingleExercise';
 
 export const ExercisesPage = () => {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./FindAWorkout.module.css";
 import dumbellIcon from "../assets/dumbellFindWorkoutPage.svg";
-import { SingleWorkout } from "../components/SingleWorkout";
+import { SingleWorkout } from "../components/WorkoutRelated/SingleWorkout";
 import { SearchBar } from "../components/SearchBar";
 import { Workout } from "../types/workout";
 import { NavLink } from "react-router-dom";

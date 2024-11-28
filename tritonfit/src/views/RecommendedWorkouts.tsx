@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { WorkoutFormResponses, WorkoutList } from "../types/workout";
 import styles from './RecommendedWorkouts.module.css'
 import miniLogo from '../assets/miniLogo.svg'
-import { SingleWorkout } from "../components/SingleWorkout";
+import { SingleWorkout } from "../components/WorkoutRelated/SingleWorkout";
 import blackLeftArrow from '../assets/blackLeftArrow.svg'
 import { useLocation, useNavigate } from "react-router-dom";
 

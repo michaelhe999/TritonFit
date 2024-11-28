@@ -8,7 +8,7 @@ import { FindAWorkout } from "./views/FindAWorkout";
 import MeetOthers from "./views/MeetOthers";
 import Profile from "./components/dummy-pages/Profile";
 import { RecommendedWorkouts } from "./views/RecommendedWorkouts";
-import { ExercisesPage } from "./components/ExercisesPage";
+import { ExercisesPage } from "./components/WorkoutRelated/ExercisesPage";
 import { CreateAccount } from "./views/createAccount";
 import { SignIn } from "./views/signIn";
 
