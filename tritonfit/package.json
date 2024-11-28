@@ -11,6 +11,11 @@
         "@types/react": "^18.2.0",
         "@types/react-dom": "^18.2.0",
         "@types/react-router-dom": "^5.3.3",
+        "cors": "^2.8.5",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.8.3",
+        "passport": "^0.7.0",
+        "passport-google-oauth20": "^2.0.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.28.0",
@@ -41,5 +46,11 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.17",
+        "@types/jsonwebtoken": "^9.0.7",
+        "@types/passport": "^1.0.17",
+        "@types/passport-google-oauth20": "^2.0.16"
     }
 }
