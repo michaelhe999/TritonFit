@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUser, editUser } from '../utils/userModelUtils';
+import { getUser, editUser, addUser } from '../utils/userModelUtils';
 import User from '../models/userModel';
 
 const UserRouter = express.Router();
@@ -13,5 +13,9 @@ UserRouter.post("/update/:id", async (req, res) => {
     const id = req.params.id;
     editUser(req, res, id)
 })
+
+UserRouter.post('/add', async (req, res) => {
+    addUser(req, res);
+});
 
 export default UserRouter

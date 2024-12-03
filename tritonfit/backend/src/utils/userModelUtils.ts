@@ -58,4 +58,45 @@ export async function editUser(req: Request, res: Response, id: string) {
     catch (err) {
         res.status(500).json({ message: "failed to change user info", error: err});
     }
+    
+}
+
+export async function addUser(req: Request, res: Response) {
+    try {
+        const { 
+            firstName, 
+            lastName, 
+            email, 
+            major, 
+            year, 
+            experience, 
+            aboutMe 
+        } = req.body;
+
+        if (!firstName || !lastName || !email || !major || !year || !experience || !aboutMe) {
+            return res.status(400).send({ error: "Missing required fields" });
+        }
+
+        // Check if a user already exists with the given email
+        const existingUser = await Users.findOne({ email });
+        if (existingUser) {
+            return res.status(409).send({ error: "User already exists" });
+        }
+
+        // Create and save the new user
+        const newUser = new Users({
+            firstName,
+            lastName,
+            email,
+            major,
+            year,
+            experience,
+            aboutMe
+        });
+
+        await newUser.save();
+        res.status(201).send({ message: "Successfully added user", user: newUser });
+    } catch (err) {
+        res.status(500).json({ message: "Failed to add user", error: err });
+    }
 }
