@@ -129,15 +129,26 @@ export const FindAWorkout = () => {
       <div>
         {recentWorkoutClicked ? (
           recentWorkouts?.length === 0 ? (
-            <NoWorkoutRender />
+            <>
+              <NoWorkoutRender />
+              <NavLink
+                  to="/createWorkout"
+                  style={{ textDecoration: 'none' }}
+                  data-testid="generateWorkoutButton"
+                >
+                <p className={styles.generateButton}>Generate new workout</p>
+              </NavLink>
+            </>
           ) : (
             <>
-              <SearchBar
-                items={recentWorkouts}
-                onResults={handleRecentSearchResults}
-                searchKey="workoutName"
-                resetCondition={setRecentWorkoutClicked}
-              />
+              <div data-testid = "searchLabel">
+                <SearchBar
+                  items={recentWorkouts}
+                  onResults={handleRecentSearchResults}
+                  searchKey="workoutName"
+                  resetCondition={setRecentWorkoutClicked}
+                />
+              </div>
               <div>
                 {filteredRecentExercises.map((currWorkout) => (
                   <SingleWorkout
@@ -171,12 +182,14 @@ export const FindAWorkout = () => {
           </>
         ) : (
           <>
-            <SearchBar
-              items={savedWorkouts}
-              onResults={handleSavedSearchResults}
-              searchKey="workoutName"
-              resetCondition={setRecentWorkoutClicked}
-            />
+            <div data-testid = "searchLabel">
+              <SearchBar
+                items={savedWorkouts}
+                onResults={handleSavedSearchResults}
+                searchKey="workoutName"
+                resetCondition={setRecentWorkoutClicked}
+              />
+            </div>
             <div>
               {filteredSavedExercises.map((currWorkout) => (
                 <SingleWorkout
