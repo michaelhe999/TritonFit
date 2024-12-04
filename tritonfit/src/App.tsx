@@ -8,7 +8,7 @@ import { FindAWorkout } from "./views/FindAWorkout";
 import MeetOthers from "./views/MeetOthers";
 import Profile from "./components/dummy-pages/Profile";
 import { RecommendedWorkouts } from "./views/RecommendedWorkouts";
-import { ExercisesPage } from "./components/ExercisesPage";
+import { ExercisesPage } from "./components/WorkoutRelated/ExercisesPage";
 import { CreateAccount } from "./views/createAccount";
 import { SignIn } from "./views/signIn";
 
@@ -81,12 +81,21 @@ const App: React.FC = () => {
               </>
             }
           />
+          <Route 
+            path="/exercises" 
+            element={
+            <>
+            <ExercisesPage />
+            <Navbar />
+            </>
+            } 
+          />
         </Routes>
       </div>
       {/* Routes that don't include the Navbar */}
       <Routes>
         <Route path="/recommendedWorkouts" element={<RecommendedWorkouts />} />
-        <Route path="/exercises" element={<ExercisesPage />} />
+        
         <Route path="/createaccount" element={<CreateAccount />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/createWorkout" element={<CreateWorkout />} />

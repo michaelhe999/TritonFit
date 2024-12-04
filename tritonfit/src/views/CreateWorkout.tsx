@@ -7,7 +7,7 @@ import { StepThree } from "../components/createWorkout/workoutFormSteps/StepThre
 import { StepFour } from "../components/createWorkout/workoutFormSteps/StepFour"
 import { StepFive } from "../components/createWorkout/workoutFormSteps/StepFive"
 import leftArrow from "../assets/leftArrow.svg"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { WorkoutFormResponses } from "../types/workout"
 
 const INITIAL_DATA: WorkoutFormResponses = {
@@ -20,6 +20,7 @@ const INITIAL_DATA: WorkoutFormResponses = {
 
 export function CreateWorkout() {
     const [data, setData] = useState(INITIAL_DATA)
+    const navigate = useNavigate();
 
     function updateFields(fields: Partial<WorkoutFormResponses>) {
         setData(prev => {
@@ -38,7 +39,7 @@ export function CreateWorkout() {
     function onSubmit(e: FormEvent) {
         e.preventDefault()
         if (!isLastStep) return next()
-        alert("Successful Workout Creation")
+        navigate("/recommendedWorkouts", { state: { data } });
     }
 
     return (
