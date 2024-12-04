@@ -44,15 +44,10 @@
 
 }
 
-.dumbellIcon{
-    margin-left: 155px;
-}
-
 .noWorkoutHeader {
     font-size: 16px;
     font-weight: 600;
     font-family: 'Manrope';
-    margin-left: 140px;
     margin-top: 34px;
 }
 
@@ -60,8 +55,8 @@
     color: #686868;
     font-size: 12px;
     width: 296px;
-    margin-left: 50px;
     text-align: center;
+    margin-left: 50px;
 
 }
 

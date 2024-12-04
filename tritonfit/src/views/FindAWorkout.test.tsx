@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { FindAWorkout } from './FindAWorkout';
 import { MemoryRouter} from 'react-router-dom';
 
-test('Find a workout page', () => {
+test('Find a workout page when no saved or recent workouts', () => {
     render(    
     <MemoryRouter>
         <FindAWorkout />
@@ -11,9 +11,6 @@ test('Find a workout page', () => {
     );
     const header = screen.getByText('Find A Workout');
     expect(header).toBeInTheDocument();
-
-    const searchBar = screen.getByTestId('searchLabel');
-    expect(searchBar).toBeInTheDocument();
 
     const recentWorkoutButton = screen.getByTestId('recentWorkoutButton')
     expect(recentWorkoutButton).toBeInTheDocument();

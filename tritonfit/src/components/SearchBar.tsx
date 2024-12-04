@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from './components.module.css'
+import styles from './WorkoutRelated/components.module.css'
 
 interface SearchBarProps<T> {
     // List of items to search through (Generic)

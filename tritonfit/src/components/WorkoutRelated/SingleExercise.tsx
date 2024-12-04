@@ -1,6 +1,6 @@
-import { Exercise } from "../types/exercise"
-import greenCheckMark from '../assets/greenCheckMark.svg'
-import blackCheckMark from '../assets/blackCheckMark.svg'
+import { Exercise } from "../../types/exercise"
+import greenCheckMark from '../../assets/greenCheckMark.svg'
+import blackCheckMark from '../../assets/blackCheckMark.svg'
 import { useState } from "react"
 import styles from './components.module.css'
 interface SingleExerciseProps {

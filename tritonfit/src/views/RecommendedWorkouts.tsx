@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { WorkoutFormResponses, WorkoutList } from "../types/workout";
 import styles from './RecommendedWorkouts.module.css'
 import miniLogo from '../assets/miniLogo.svg'
-import { SingleWorkout } from "../components/SingleWorkout";
+import { SingleWorkout } from "../components/WorkoutRelated/SingleWorkout";
 import blackLeftArrow from '../assets/blackLeftArrow.svg'
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const sampleResponse: WorkoutFormResponses = {
     gender: 'male',
@@ -15,25 +15,32 @@ const sampleResponse: WorkoutFormResponses = {
     duration: '60'
 }
 
-async function getWorkouts() {
-    const response = await generateWorkout(sampleResponse);
+async function getWorkouts(data:WorkoutFormResponses) {
+    const response = await generateWorkout(data);
     return response;
 }
 
 export const RecommendedWorkouts = () => {
     const [workouts, setWorkouts] = useState<WorkoutList>();
+    const location = useLocation();
+    const workoutData:WorkoutFormResponses = location.state?.data || sampleResponse;
+    const prevWorkoutList:WorkoutList = location.state?.workoutList || null;
+    const id: string = location.state?.id || '';
 
     useEffect(() => {
-        getWorkouts().then(response => {
-            setWorkouts(response);
-        });
-
+        if (!prevWorkoutList) {
+            getWorkouts(workoutData).then(response => {
+                setWorkouts(response);
+            });
+        } else {
+            setWorkouts(prevWorkoutList);
+        }
     }, []);
 
     const navigate = useNavigate();
 
     const handleBack = () => {
-        navigate(-1);
+        navigate("/createWorkout");
     };
 
     return (
@@ -53,7 +60,7 @@ export const RecommendedWorkouts = () => {
                     
                     <h1 className = {styles.header} >Recommended Workouts For You</h1>
                     {workouts.workouts.map((workout) => {
-                        return <SingleWorkout workout={workout} exercises={workout.exercises}/>
+                        return <SingleWorkout workout={workout} exercises={workout.exercises} workoutList={workouts} id = {id}/>
                     })}
                 </div>
 
