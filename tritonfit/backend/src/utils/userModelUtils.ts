@@ -100,3 +100,12 @@ export async function addUser(req: Request, res: Response) {
         res.status(500).json({ message: "Failed to add user", error: err });
     }
 }
+
+export async function getAllUsers(req: Request, res: Response) {
+    try {
+        const userInfo = await Users.find();
+        res.status(200).json(userInfo);
+    } catch (err) {
+        res.status(500).json({ message: "Failed to fetch all users", error: err});
+    }
+}
