@@ -1,6 +1,12 @@
-import React, { useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { CreateWorkout } from './views/CreateWorkout'
+import React, { useEffect } from "react";
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
+import { CreateWorkout } from "./views/CreateWorkout";
 import "./App.css";
 import Navbar from "./Navbar/Navbar";
 import Home from "./views/Home";
@@ -17,14 +23,14 @@ function AuthCallback() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const token = params.get('token');
+    const token = params.get("token");
 
     if (token) {
-      localStorage.setItem('token', token);
-      navigate('/');
+      localStorage.setItem("token", token);
+      navigate("/");
       window.location.reload();
     } else {
-      navigate('/');
+      navigate("/");
     }
   }, [navigate]);
 
@@ -49,7 +55,10 @@ const App: React.FC = () => {
             path="/"
             element={
               <>
-                <Home />
+                <div className="content-container">
+                  <Home />
+                </div>
+
                 <Navbar />
               </>
             }
@@ -58,7 +67,10 @@ const App: React.FC = () => {
             path="/findworkout"
             element={
               <>
-                <FindAWorkout />
+                <div className="content-container">
+                  <FindAWorkout />
+                </div>
+
                 <Navbar />
               </>
             }
@@ -67,7 +79,10 @@ const App: React.FC = () => {
             path="/meetothers"
             element={
               <>
-                <MeetOthers />
+                <div className="content-container">
+                  <MeetOthers />
+                </div>
+
                 <Navbar />
               </>
             }
@@ -76,32 +91,37 @@ const App: React.FC = () => {
             path="/profile"
             element={
               <>
-                <Profile />
+                <div className="content-container">
+                  <Profile />
+                </div>
+
                 <Navbar />
               </>
             }
           />
-          <Route 
-            path="/exercises" 
+          <Route
+            path="/exercises"
             element={
-            <>
-            <ExercisesPage />
-            <Navbar />
-            </>
-            } 
+              <>
+                <div className="content-container">
+                  <ExercisesPage />
+                </div>
+
+                <Navbar />
+              </>
+            }
           />
         </Routes>
       </div>
       {/* Routes that don't include the Navbar */}
       <Routes>
         <Route path="/recommendedWorkouts" element={<RecommendedWorkouts />} />
-        
+
         <Route path="/createaccount" element={<CreateAccount />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/createWorkout" element={<CreateWorkout />} />
       </Routes>
     </Router>
-
   );
 };
 

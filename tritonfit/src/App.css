@@ -12,3 +12,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.content-container {
+  padding-bottom: 70px; /* Adjust this value based on the height of your navbar */
+}

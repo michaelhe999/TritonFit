@@ -98,18 +98,32 @@ const MeetOthers: React.FC = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  // Fetch users from the backend
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("/api/users"); // Adjust the endpoint as per your backend
+        const response = await fetch("http://localhost:5001/user/getall", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch users");
         }
         const data = await response.json();
-        setUsers(data); // Assuming the data is an array of user objects
-      } catch (error) {
-        console.error("Error fetching users:", error);
+        // Transform the data to match the expected format
+        const formattedUsers = data.map((user: any) => ({
+          name: `${user.firstName} ${user.lastName}`,
+          image: "default-avatar.png", // Replace with actual image logic if available
+          major: `${user.major}, ${user.year}`,
+          experience: user.experience,
+          about: user.aboutMe,
+          email: user.email,
+          id: user.id,
+        }));
+        setUsers(formattedUsers);
+      } catch (err: any) {
+        console.error("Error fetching users:", err);
       }
     };
 
@@ -130,9 +144,10 @@ const MeetOthers: React.FC = () => {
         <>
           <h1 className="title">Meet Others</h1>
           <p className="subtitle">
-            Meet other UCSD students who are also looking to hit the gym and stay
-            active!
+            Meet other UCSD students who are also looking to hit the gym and
+            stay active!
           </p>
+
           <PeopleGrid users={users} onCardClick={handleCardClick} />
         </>
       ) : (
