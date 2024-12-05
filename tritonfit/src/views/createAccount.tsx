@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import userPNG from '../assets/userPNG.png';
 import styles from './createAccount.module.css'; // Import the CSS Module
 import { addUser } from "utils/userModel-util";
 
 export const CreateAccount = () => {
+  const navigate = useNavigate();
   const initialUser = {
     id: -1,
     firstName: '',
@@ -22,9 +24,10 @@ export const CreateAccount = () => {
     event.preventDefault();
 
     try {
-      const newUser = await addUser(createUser); // Use the utility to add a user
+      const newUser = await addUser(createUser);
       setMessage(`User created successfully!`);
-      setCreateUser(initialUser); // Reset the form
+      setCreateUser(initialUser); 
+      navigate('/');
     } catch (error: any) {
       setMessage(error.message || "Something went wrong");
     }
