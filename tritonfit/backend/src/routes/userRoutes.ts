@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUser, editUser, getAllUsers } from '../utils/userModelUtils';
+import { getUser, editUser, getAllUsers, addUser } from '../utils/userModelUtils';
 import User from '../models/userModel';
 
 const UserRouter = express.Router();
@@ -14,6 +14,9 @@ UserRouter.post("/update/:id", async (req, res) => {
     editUser(req, res, id)
 })
 
+UserRouter.post('/add', async (req, res) => {
+    addUser(req, res);
+});
 UserRouter.get('/getall', async (req, res) => {
     getAllUsers(req, res);
 })

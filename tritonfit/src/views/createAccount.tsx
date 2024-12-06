@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import userPNG from '../assets/userPNG.png';
 import styles from './createAccount.module.css'; // Import the CSS Module
+import { addUser } from "utils/userModel-util";
 
 export const CreateAccount = () => {
+  const navigate = useNavigate();
   const initialUser = {
     id: -1,
     firstName: '',
@@ -15,33 +18,19 @@ export const CreateAccount = () => {
   };
 
   const [createUser, setCreateUser] = useState(initialUser);
+  const [message, setMessage] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // For demo purposes
-    alert(
-      'First Name: ' +
-        createUser.firstName +
-        '\n' +
-        'Last Name: ' +
-        createUser.lastName +
-        '\n' +
-        'Email: ' +
-        createUser.email +
-        '\n' +
-        'Major: ' +
-        createUser.major +
-        '\n' +
-        'Year: ' +
-        createUser.year +
-        '\n' +
-        'Experience: ' +
-        createUser.experience +
-        '\n' +
-        'About Me: ' +
-        createUser.aboutMe
-    );
-    setCreateUser(initialUser);
+
+    try {
+      const newUser = await addUser(createUser);
+      setMessage(`User created successfully!`);
+      setCreateUser(initialUser); 
+      navigate('/');
+    } catch (error: any) {
+      setMessage(error.message || "Something went wrong");
+    }
   };
 
   return (
@@ -132,6 +121,7 @@ export const CreateAccount = () => {
       </div>
 
       <button type="submit">Create Account</button>
+      {message && <p>{message}</p>}
     </form>
   );
 };
