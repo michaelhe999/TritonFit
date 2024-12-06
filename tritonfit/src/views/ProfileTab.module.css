@@ -1,0 +1,102 @@
+body {
+    font-family: sans-serif;
+}
+
+.border {
+    position: fixed;
+    left: -3px;
+    width: 393px;
+    height: 124px;
+}
+
+.icon {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    top: 115px;
+    left: 18px;
+    border: 8px solid white;
+    border-radius: 50%;
+    border-color: white;
+    object-fit: cover;
+}
+
+.name {
+    position: fixed;
+    top: 133px;
+    left: 107px;
+    color: #161616;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 25px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;    
+}
+
+.buttonContainer {
+    display: grid;
+    position: fixed;
+    top: 214px;
+    width: 393px;
+}
+
+.button {
+    display: flex;
+    height: 66px;
+    margin: 4px 0;
+
+	background: none;
+	color: inherit;
+	border: none;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.buttonIcon {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    top: 18px;
+    left: 24px;
+}
+
+.buttonText {
+    position: relative;
+    left: 52px;
+    top: 4px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    
+}
+
+.buttonHeader {
+    color: #4E4E4E;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 4px;
+}
+
+.buttonSub {
+    color: #686868;
+    font-size: 12px;
+    font-weight: 300;
+    margin: 4px;
+}
+
+.arrowIcon {
+    position: relative;
+    width: 7px;
+    height: 11px;
+    top: 22px;
+    left: 242px;
+}
+
+.aboutIcon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    top: 20px;
+    left: 184px;
+}
