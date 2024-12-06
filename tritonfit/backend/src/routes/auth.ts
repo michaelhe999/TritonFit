@@ -1,76 +1,67 @@
 import express from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
-import User, { IUser } from '../models/User';
-import dotenv from 'dotenv';
-dotenv.config({ path: '../../.env' });
+import User from '../models/User';
 
 const router = express.Router();
 
-// Extend the Express Request type to include our user
-declare global {
-  namespace Express {
-    interface User extends IUser {}
-  }
-}
+// Debug logging middleware
+router.use((req, res, next) => {
+  console.log(`Auth Route Hit: ${req.method} ${req.url}`);
+  console.log('Headers:', req.headers);
+  next();
+});
 
-// Add error handling and logging to Google auth route
 router.get('/google',
   (req, res, next) => {
-    console.log('Starting Google authentication...');
-    passport.authenticate('google', { 
+    console.log('Starting Google authentication');
+    passport.authenticate('google', {
       scope: ['profile', 'email'],
-      prompt: 'select_account' // Always show account selector
+      prompt: 'select_account',
+      session: false
     })(req, res, next);
   }
 );
 
-// Add error handling and logging to callback route
 router.get('/google/callback',
   (req, res, next) => {
-    console.log('Received callback from Google');
+    console.log('Google callback received');
     passport.authenticate('google', { session: false }, (err, user) => {
       if (err) {
-        console.error('Authentication error:', err);
-        return res.redirect(`${process.env.CLIENT_URL}/auth-error`);
+        console.error('Auth Error:', err);
+        return res.redirect(`${process.env.CLIENT_URL}?error=auth_failed`);
       }
       
       if (!user) {
-        console.error('No user returned from Google');
-        return res.redirect(`${process.env.CLIENT_URL}/auth-error`);
+        console.error('No user returned');
+        return res.redirect(`${process.env.CLIENT_URL}?error=no_user`);
       }
 
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!, {
-        expiresIn: '7d'
-      });
-
-      console.log('Authentication successful, redirecting to client...');
-      res.redirect(`${process.env.CLIENT_URL}/auth-callback?token=${token}`);
+      try {
+        const token = jwt.sign(
+          { 
+            userId: user._id,
+            isNewUser: !user.isProfileComplete 
+          }, 
+          process.env.JWT_SECRET!,
+          { expiresIn: '7d' }
+        );
+        if (!user.isProfileComplete) {
+          console.log('Temporarily redirect to home:', `${process.env.CLIENT_URL}/home`);
+          res.redirect(`${process.env.CLIENT_URL}/home`);
+          // console.log('Redirecting to:', `${process.env.CLIENT_URL}/createaccount`);
+          //res.redirect(`${process.env.CLIENT_URL}/createaccount`);
+        }
+        else {
+        console.log('Redirecting to:', `${process.env.CLIENT_URL}?token=${token}`);
+        //res.redirect(`${process.env.CLIENT_URL}?token=${token}`);
+        res.redirect(`${process.env.CLIENT_URL}/home`);
+        }
+      } catch (error) {
+        console.error('Token Error:', error);
+        res.redirect(`${process.env.CLIENT_URL}?error=token_error`);
+      }
     })(req, res, next);
-  }
-);
-
-// User info route
-router.get('/user', 
-  async (req, res) => {
-    try {
-      const token = req.headers.authorization?.split(' ')[1];
-      if (!token) {
-        return res.status(401).json({ message: 'No token provided' });
-      }
-
-      const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { userId: string };
-      const user = await User.findById(decoded.userId).select('-__v');
-      
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-
-      res.json(user);
-    } catch (error) {
-      console.error('Error in /user route:', error);
-      res.status(401).json({ message: 'Invalid token' });
-    }
   }
 );
 

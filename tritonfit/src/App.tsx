@@ -1,3 +1,5 @@
+
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import React, { useEffect } from "react";
 import {
   HashRouter as Router,
@@ -16,15 +18,21 @@ import { RecommendedWorkouts } from "./views/RecommendedWorkouts";
 import { ExercisesPage } from "./components/WorkoutRelated/ExercisesPage";
 import { CreateAccount } from "./views/createAccount";
 import { SignIn } from "./views/signIn";
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProfileTab } from "./views/ProfileTab";
 import { ProfilePage } from "./views/ProfilePage";
 
-function AuthCallback() {
+// Token handler component
+const TokenHandler: React.FC = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const { refreshUser } = useAuth();
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
+    const handleToken = async () => {
+      const params = new URLSearchParams(location.search);
+      const token = params.get('token');
+      const error = params.get('error');
 
     if (token) {
       localStorage.setItem("token", token);
@@ -35,34 +43,92 @@ function AuthCallback() {
     }
   }, [navigate]);
 
-  return <div>Processing login...</div>;
-}
+      if (error) {
+        console.error('Auth error:', error);
+        navigate('/', { replace: true });
+        return;
+      }
 
-function RedirectToGoogleAuth() {
-  useEffect(() => {
-    window.location.href = `${process.env.REACT_APP_SERVER_URL}/auth/google`;
-  }, []);
+      if (token) {
+        try {
+          // Store token
+          localStorage.setItem('token', token);
+          
+          // Refresh user data
+          await refreshUser();
+          
+          // Get user data to check profile completion
+          const response = await fetch('http://localhost:5001/auth/user', {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+          }
+
+          const userData = await response.json();
+          
+          // Remove token from URL and navigate
+          const targetPath = userData.isProfileComplete ? '/home' : '/createaccount';
+          navigate(targetPath, { replace: true });
+        } catch (error) {
+          console.error('Error processing token:', error);
+          localStorage.removeItem('token');
+          navigate('/', { replace: true });
+        }
+      }
+    };
+
+    handleToken();
+  }, [location, navigate, refreshUser]);
 
   return null;
-}
+};
 
-const App: React.FC = () => {
+// Protected Route component
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate('/', { replace: true });
+    }
+  }, [user, loading, navigate]);
+  
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div>Loading...</div>
+      </div>
+    );
+  }
+  
+  return user ? <>{children}</> : null;
+};
+
+// Layout component with navbar
+const WithNavbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { user } = useAuth();
+  
   return (
     <Router>
       {/* Navbar included for these routes */}
       <div className="app-content">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <div className="content-container">
-                  <Home />
-                </div>
-                <Navbar />
-              </>
-            }
-          />
+          <Route path="/" element={
+        loading ? (
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+          </div>
+        ) : user ? (
+          <Navigate to="/home" replace />
+        ) : (
+          <SignIn />
+        )
+      } />
           <Route
             path="/findworkout"
             element={

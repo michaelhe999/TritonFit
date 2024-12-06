@@ -21,6 +21,7 @@
 tritonfit/node_modules/
 tritonfit/backend/node_modules/
 tritonfit/node_modules/
+tritonfit/backend/.env
 
 npm-debug.log*
 yarn-debug.log*
