@@ -12,6 +12,10 @@ import userRoutes from './routes/user';
 
 
 dotenv.config({ path: '.env' });
+import RecentWorkoutRouter from './routes/recentWorkoutRoutes';
+import SavedWorkoutRouter from './routes/savedWorkoutRoutes';
+import UserRouter from './routes/userRoutes';
+
 
 const app = express();
 
@@ -117,3 +121,8 @@ app.listen(PORT, () => {
     JWT_SECRET: process.env.JWT_SECRET ? 'Set' : 'Not set'
   });
 });
+
+app.use('/recentWorkouts', RecentWorkoutRouter);
+app.use('/savedWorkouts', SavedWorkoutRouter);
+app.use('/user', UserRouter);
+

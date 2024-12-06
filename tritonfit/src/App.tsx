@@ -1,17 +1,26 @@
-import React, { useEffect } from 'react';
+
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import { CreateWorkout } from './views/CreateWorkout';
+import React, { useEffect } from "react";
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
+import { CreateWorkout } from "./views/CreateWorkout";
 import "./App.css";
 import Navbar from "./Navbar/Navbar";
 import Home from "./views/Home";
 import { FindAWorkout } from "./views/FindAWorkout";
-import MeetOthers from "./components/dummy-pages/MeetOthers";
-import Profile from "./components/dummy-pages/Profile";
+import MeetOthers from "./views/MeetOthers";
 import { RecommendedWorkouts } from "./views/RecommendedWorkouts";
-import { ExercisesPage } from "./components/ExercisesPage";
+import { ExercisesPage } from "./components/WorkoutRelated/ExercisesPage";
 import { CreateAccount } from "./views/createAccount";
 import { SignIn } from "./views/signIn";
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ProfileTab } from "./views/ProfileTab";
+import { ProfilePage } from "./views/ProfilePage";
 
 // Token handler component
 const TokenHandler: React.FC = () => {
@@ -24,6 +33,15 @@ const TokenHandler: React.FC = () => {
       const params = new URLSearchParams(location.search);
       const token = params.get('token');
       const error = params.get('error');
+
+    if (token) {
+      localStorage.setItem("token", token);
+      navigate("/");
+      window.location.reload();
+    } else {
+      navigate("/");
+    }
+  }, [navigate]);
 
       if (error) {
         console.error('Auth error:', error);
@@ -96,29 +114,11 @@ const WithNavbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
   
   return (
-    <>
-      {children}
-      {user && <Navbar />}
-    </>
-  );
-};
-
-const AppRoutes = () => {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div>Loading...</div>
-      </div>
-    );
-  }
-
-  return (
-    <>
-      <Routes>
-      {/* Public routes */}
-      <Route path="/" element={
+    <Router>
+      {/* Navbar included for these routes */}
+      <div className="app-content">
+        <Routes>
+          <Route path="/" element={
         loading ? (
           <div className="flex items-center justify-center min-h-screen">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
@@ -129,64 +129,65 @@ const AppRoutes = () => {
           <SignIn />
         )
       } />
-        <Route path="/auth-error" element={<div>Authentication Error</div>} />
+          <Route
+            path="/findworkout"
+            element={
+              <>
+                <div className="content-container">
+                  <FindAWorkout />
+                </div>
 
-        {/* Protected routes */}
-        <Route path="/createaccount" element={
-            <CreateAccount />
-        } />
-        <Route path="/home" element={
-            <WithNavbar>
-              <Home />
-            </WithNavbar>
-        } />
+                <Navbar />
+              </>
+            }
+          />
+          <Route
+            path="/meetothers"
+            element={
+              <>
+                <div className="content-container">
+                  <MeetOthers />
+                </div>
 
-        {/* Other protected routes */}
-        <Route path="/findworkout" element={
-            <WithNavbar>
-              <FindAWorkout />
-            </WithNavbar>
-        } />
-        <Route path="/meetothers" element={
-            <WithNavbar>
-              <MeetOthers />
-            </WithNavbar>
-        } />
-        <Route path="/profile" element={
-            <WithNavbar>
-              <Profile />
-            </WithNavbar>
-        } />
-        <Route path="/recommendedWorkouts" element={
-            <WithNavbar>
-              <RecommendedWorkouts />
-            </WithNavbar>
-        } />
-        <Route path="/exercises" element={
-            <WithNavbar>
-              <ExercisesPage />
-            </WithNavbar>
-        } />
-        <Route path="/createWorkout" element={
-            <WithNavbar>
-              <CreateWorkout />
-            </WithNavbar>
-        } />
+                <Navbar />
+              </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <>
+                <div className="content-container">
+                  <ProfileTab />
+                </div>
 
-        {/* Catch all route */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+                <Navbar />
+              </>
+            }
+          />
+          <Route
+            path="/exercises"
+            element={
+              <>
+                <div className="content-container">
+                  <ExercisesPage />
+                </div>
+
+                <Navbar />
+              </>
+            }
+          />
+        </Routes>
+      </div>
+      {/* Routes that don't include the Navbar */}
+      <Routes>
+        <Route path="/recommendedWorkouts" element={<RecommendedWorkouts />} />
+        <Route path="/createaccount" element={<CreateAccount />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/createWorkout" element={<CreateWorkout />} />
+        <Route path="/edit-profile" element={<ProfilePage />} />
       </Routes>
-    </>
-  );
-};
-
-const App: React.FC = () => {
-  return (
-    <AuthProvider>
-      <Router>
-        <AppRoutes />
-      </Router>
-    </AuthProvider>
+    </Router>
   );
 };
 

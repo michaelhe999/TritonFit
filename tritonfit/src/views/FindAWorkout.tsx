@@ -1,145 +1,208 @@
-import { useState } from "react"
-import styles from './FindAWorkout.module.css';
-import dumbellIcon  from "../assets/dumbellFindWorkoutPage.svg"
-import { SingleWorkout } from "../components/SingleWorkout";
+import { useEffect, useState } from "react";
+import styles from "./FindAWorkout.module.css";
+import dumbellIcon from "../assets/dumbellFindWorkoutPage.svg";
+import { SingleWorkout } from "../components/WorkoutRelated/SingleWorkout";
 import { SearchBar } from "../components/SearchBar";
-import { Workout, Difficulty } from "../types/workout";
-import { Exercise } from "../types/exercise";
-import { NavLink } from "react-router-dom"
+import { Workout } from "../types/workout";
+import { NavLink } from "react-router-dom";
+import { getRecentWorkouts, getSavedWorkouts, deleteSavedWorkouts } from "utils/recentAndSavedWorkouts-util";
 
-// Exercises and workouts are hard coded until database is integrated; remove once database integrated
-const fakeExercise: Exercise[] = [
-    {
-        name: 'Pushup',
-        sets: 3,
-        reps: '4-6'
-    }
-]
-
-const fakeWorkout: Workout[] = [
-    {
-        workoutName: "Back Builder",
-        workoutDescription: "HIIT for back",
-        workoutDuration: 30,
-        workoutDifficulty: Difficulty.INTERMEDIATE,
-        exercises: fakeExercise
-    }, {
-        workoutName: "Chest Strength",
-        workoutDescription: "HIIT for chest",
-        workoutDuration: 60,
-        workoutDifficulty: Difficulty.ADVANCED,
-        exercises: fakeExercise
-    }, {
-        workoutName: "Full Body",
-        workoutDescription: "HIIT for full body",
-        workoutDuration: 45,
-        workoutDifficulty: Difficulty.BEGINNER,
-        exercises: fakeExercise
-    }
-];
+const fakeUserId: string = "000000000000000000000001";
 
 const NoWorkoutRender = () => {
-    return (
-        <>
-            <h1 className={styles.noWorkoutHeader}>No workouts yet</h1>  
-            <p className = {styles.noWorkoutText}>You don’t have any workouts yet. Generate a new workout now!</p>
-            <img className = {styles.dumbellIcon} src={dumbellIcon} alt = "dumbellIcon"/> 
-        </>   
-    );
-}
+  return (
+    <>
+      <h1 className={styles.noWorkoutHeader}>No workouts yet</h1>
+      <p className={styles.noWorkoutText}>
+        You don’t have any workouts yet. Generate a new workout now!
+      </p>
+      <img className={styles.dumbellIcon} src={dumbellIcon} alt="dumbellIcon" />
+    </>
+  );
+};
 
 export const FindAWorkout = () => {
-    const [recentWorkoutClicked, setRecentWorkoutClicked] = useState<boolean>(true);
 
-    const [savedWorkouts, setSavedWorkouts] =  useState<Workout[]>(fakeWorkout)
-    const [recentWorkouts, setRecentWorkouts] =  useState<Workout[]>(fakeWorkout)
+  const [savedWorkouts, setSavedWorkouts] = useState<Workout[]>([]);
+  const [recentWorkouts, setRecentWorkouts] = useState<Workout[]>([]);
+  const [filteredRecentExercises, setFilteredRecentExercises] =
+    useState<Workout[]>(recentWorkouts);
+  const [filteredSavedExercises, setFilteredSavedExercises] =
+    useState<Workout[]>(savedWorkouts);
 
-    const handleRecentWorkoutClick = () => {
-        setRecentWorkoutClicked(true);
-        resetSearch();
+  useEffect(() => {
+    loadRecentWorkouts();
+    loadSavedWorkouts();
+  }, [] );
+
+
+  useEffect(() => {
+    setFilteredRecentExercises(recentWorkouts);
+  }, [recentWorkouts]);
+
+  useEffect(() => {
+    setFilteredSavedExercises(savedWorkouts);
+  }, [savedWorkouts]);
+
+  const loadRecentWorkouts = async () => {
+    try {
+      const updatedWorkouts = await getRecentWorkouts(fakeUserId);
+      setRecentWorkouts(updatedWorkouts);
+    } catch (err: any) {
+      console.log(err.message);
     }
+  };
 
-    const handleSavedWorkoutClick = () => {
-        setRecentWorkoutClicked(false);
-        resetSearch();
+  const loadSavedWorkouts = async () => {
+    try {
+      const updatedWorkouts = await getSavedWorkouts(fakeUserId);
+      setSavedWorkouts(updatedWorkouts);
+    } catch (err: any) {
+      console.log(err.message);
     }
+  };
 
-    const [filteredRecentExercises, setFilteredRecentExercises] = useState<Workout[]>(recentWorkouts);
-    const [filteredSavedExercises, setFilteredSavedExercises] = useState<Workout[]>(savedWorkouts);
+  const clearSavedWorkouts = async () => {
+    try {
+      await deleteSavedWorkouts(fakeUserId);
+      loadSavedWorkouts();
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
 
-    const handleRecentSearchResults = (results: Workout[]) => {
-        setFilteredRecentExercises(results);
-    };
+  const [recentWorkoutClicked, setRecentWorkoutClicked] =
+    useState<boolean>(true);
 
-    const handleSavedSearchResults = (results: Workout[]) => {
-        setFilteredSavedExercises(results);
-    };
+  const handleRecentWorkoutClick = () => {
+    setRecentWorkoutClicked(true);
+    resetSearch();
+  };
 
-    const resetSearch = () => {
-        setFilteredRecentExercises(recentWorkouts);  
-        setFilteredSavedExercises(savedWorkouts);
-    };
+  const handleSavedWorkoutClick = () => {
+    setRecentWorkoutClicked(false);
+    resetSearch();
+  };
 
-    return (
-        <>
-            <h1 className = {styles.header} >Find A Workout</h1>
-            <div className = {styles.buttonRow}>
-                <button 
-                    data-testid = "recentWorkoutButton"
-                    className={ recentWorkoutClicked 
-                            ? styles.buttonClicked 
-                            : styles.buttonNotClicked }
-                    onClick={handleRecentWorkoutClick} >
-                    Recent Workouts
-                </button>
+  const handleRecentSearchResults = (results: Workout[]) => {
+    setFilteredRecentExercises(results);
+  };
 
-                <button 
-                    data-testid = "savedWorkoutButton"
-                    className ={!recentWorkoutClicked 
-                            ? styles.buttonClicked 
-                            : styles.buttonNotClicked}
-                    onClick={handleSavedWorkoutClick} >
-                    Saved Workouts
-                </button>
+  const handleSavedSearchResults = (results: Workout[]) => {
+    setFilteredSavedExercises(results);
+  };
+
+  const resetSearch = () => {
+    setFilteredRecentExercises(recentWorkouts);
+    setFilteredSavedExercises(savedWorkouts);
+  };
+
+  return (
+    <div className="container">
+      <h1 className={styles.header}>Find A Workout</h1>
+      <div className={styles.buttonRow}>
+        <button
+          data-testid="recentWorkoutButton"
+          className={
+            recentWorkoutClicked
+              ? styles.buttonClicked
+              : styles.buttonNotClicked
+          }
+          onClick={handleRecentWorkoutClick}
+        >
+          Recent Workouts
+        </button>
+
+        <button
+          data-testid="savedWorkoutButton"
+          className={
+            !recentWorkoutClicked
+              ? styles.buttonClicked
+              : styles.buttonNotClicked
+          }
+          onClick={handleSavedWorkoutClick}
+        >
+          Saved Workouts
+        </button>
+      </div>
+
+      <div>
+        {recentWorkoutClicked ? (
+          recentWorkouts?.length === 0 ? (
+            <>
+              <NoWorkoutRender />
+              <NavLink
+                  to="/createWorkout"
+                  style={{ textDecoration: 'none' }}
+                  data-testid="generateWorkoutButton"
+                >
+                <p className={styles.generateButton}>Generate new workout</p>
+              </NavLink>
+            </>
+          ) : (
+            <>
+              <div data-testid = "searchLabel">
+                <SearchBar
+                  items={recentWorkouts}
+                  onResults={handleRecentSearchResults}
+                  searchKey="workoutName"
+                  resetCondition={setRecentWorkoutClicked}
+                />
+              </div>
+              <div>
+                {filteredRecentExercises.map((currWorkout) => (
+                  <SingleWorkout
+                    workout={currWorkout}
+                    exercises={currWorkout.exercises}
+                    id = {fakeUserId}
+                  />
+                ))}
+              </div>
+              <NavLink
+                to="/createWorkout"
+                style={{ textDecoration: 'none' }}
+                data-testid="generateWorkoutButton"
+                
+              >
+                <p className={styles.generateButton}>Generate new workout</p>
+              </NavLink>
+            </>
+          )
+        ) : savedWorkouts?.length === 0 ? (
+          <>
+            <NoWorkoutRender />
+            <NavLink
+                to="/createWorkout"
+                style={{ textDecoration: 'none' }}
+                data-testid="generateWorkoutButton"
+                
+              >
+                <p className={styles.generateButton}>Generate new workout</p>
+              </NavLink>
+          </>
+        ) : (
+          <>
+            <div data-testid = "searchLabel">
+              <SearchBar
+                items={savedWorkouts}
+                onResults={handleSavedSearchResults}
+                searchKey="workoutName"
+                resetCondition={setRecentWorkoutClicked}
+              />
             </div>
-             
             <div>
-                { recentWorkoutClicked
-                    ? recentWorkouts?.length === 0 
-                        ? <NoWorkoutRender/> 
-                        : <>
-                            <SearchBar
-                                items={recentWorkouts}
-                                onResults={handleRecentSearchResults}
-                                searchKey="workoutName" 
-                                resetCondition={setRecentWorkoutClicked}
-                            />
-                            <div>
-                                {filteredRecentExercises.map((currWorkout) => (
-                                    <SingleWorkout workout={currWorkout} exercises={currWorkout.exercises}/>
-                                ))}
-                            </div>
-                        </>
-                    : savedWorkouts?.length ===0 
-                        ? <NoWorkoutRender/>
-                        : <>
-                            <SearchBar
-                                items={savedWorkouts}
-                                onResults={handleSavedSearchResults}
-                                searchKey="workoutName" 
-                                resetCondition={setRecentWorkoutClicked}
-                            />
-                            <div>
-                                {filteredSavedExercises.map((currWorkout) => (
-                                    <SingleWorkout workout={currWorkout} exercises={currWorkout.exercises}/>
-                                ))}
-                            </div>
-                        </>
-                }
+              {filteredSavedExercises.map((currWorkout) => (
+                <SingleWorkout
+                  workout={currWorkout}
+                  exercises={currWorkout.exercises}
+                  id = {fakeUserId}
+                />
+              ))}
             </div>
-
-            <NavLink to="/createWorkout" data-testid = "generateWorkoutButton" className= {styles.generateButton}><p>Generate new workout</p></NavLink>
-
-        </>
-    );
-}
+            <button onClick = {clearSavedWorkouts} className={styles.generateButton}>Clear saved workouts</button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};

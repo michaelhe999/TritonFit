@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from './components.module.css'
+import styles from './WorkoutRelated/components.module.css'
 
 interface SearchBarProps<T> {
     // List of items to search through (Generic)
@@ -41,7 +41,7 @@ export const SearchBar = <T,>({
 
     return (
         <div className ={styles.search}>
-            <label data-testid = 'searchLabel'> Search</label>
+            <label data-testid = 'searchLabel' className="search-label">Search</label>
             <input
                 className= {styles.searchBar}
                 type="text"

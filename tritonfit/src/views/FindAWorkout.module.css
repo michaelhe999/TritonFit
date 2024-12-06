@@ -1,3 +1,10 @@
+.container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    font-family: "Manrope";
+  }
+
 .header {
     font-family: 'Manrope';
     font-size: 24px; 
@@ -37,15 +44,10 @@
 
 }
 
-.dumbellIcon{
-    margin-left: 155px;
-}
-
 .noWorkoutHeader {
     font-size: 16px;
     font-weight: 600;
     font-family: 'Manrope';
-    margin-left: 140px;
     margin-top: 34px;
 }
 
@@ -53,15 +55,12 @@
     color: #686868;
     font-size: 12px;
     width: 296px;
-    margin-left: 50px;
     text-align: center;
+    margin-left: 50px;
 
 }
 
 .generateButton {
-    position: fixed;
-    bottom: 90px;
-    left: 16px;
     width: 360px;
     height: 50px;
     border-radius: 20px;
@@ -70,8 +69,6 @@
     color: white;
     text-decoration: none;
     text-align: center;
-}
-
-.generateButton p {
-    vertical-align: middle;
+    line-height: 50px;
+    margin: auto;
 }

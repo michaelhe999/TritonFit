@@ -1,5 +1,5 @@
-.App {
-  text-align: center;
+.app-content {
+  text-align: center;  
 }
 
 .App-header {
@@ -13,6 +13,6 @@
   color: white;
 }
 
-.app-content {
-  padding-bottom: 76px;
+.content-container {
+  padding-bottom: 70px;
 }

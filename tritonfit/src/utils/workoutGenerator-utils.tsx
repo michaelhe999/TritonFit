@@ -40,7 +40,6 @@ export const generateWorkout = async(formResponse: WorkoutFormResponses): Promis
         const content = apiResponse.choices[0].message.content;
 
         const cleanContent = content.replace(/```/g, "").trim();
-        console.log(cleanContent);
 
         try {
             const workoutData: WorkoutList = JSON.parse(cleanContent);
