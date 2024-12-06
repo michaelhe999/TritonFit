@@ -103,7 +103,10 @@ const App: React.FC = () => {
             path="/exercises"
             element={
               <>
-                <ExercisesPage />
+                <div className="content-container">
+                  <ExercisesPage />
+                </div>
+
                 <Navbar />
               </>
             }
