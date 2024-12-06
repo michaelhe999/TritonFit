@@ -1,0 +1,69 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    z-index: 1000;
+}
+
+.backround {
+    position: relative;
+    width: 390px;
+    height: 390px;
+    text-align: center;
+    background-color: white;
+    border-radius: 8px 8px 0 0;
+    padding: 20px;
+}
+
+.icon {
+    position: absolute;
+    top: 103px;
+    left: 86px;
+}
+
+.closeButton {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #333;
+    font-weight: bold;
+}
+
+.noButton {
+    position: absolute;
+    top: 272px;
+    left: 16px;
+    width: 358px;
+    height: 50px;
+    font-size: 14px;
+    font-weight: 300;
+    border-style: none;
+    border-radius: 20px;
+    color: white;
+    background: #182B49;
+}
+
+.yesButton {
+    position: absolute;
+    top: 330px;
+    left: 16px;
+    width: 358px;
+    height: 50px;
+    font-size: 14px;
+    font-weight: 300;
+    border-style: solid;
+    border-color: #686868;
+    border-width: thin;
+    border-radius: 20px;
+    color: #686868;
+    background: white;
+}

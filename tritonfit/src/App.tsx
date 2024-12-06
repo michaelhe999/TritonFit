@@ -6,11 +6,12 @@ import Navbar from "./Navbar/Navbar";
 import Home from "./views/Home";
 import { FindAWorkout } from "./views/FindAWorkout";
 import MeetOthers from "./views/MeetOthers";
-import Profile from "./components/dummy-pages/Profile";
 import { RecommendedWorkouts } from "./views/RecommendedWorkouts";
 import { ExercisesPage } from "./components/WorkoutRelated/ExercisesPage";
 import { CreateAccount } from "./views/createAccount";
 import { SignIn } from "./views/signIn";
+import { ProfileTab } from "./views/ProfileTab";
+import { ProfilePage } from "./views/ProfilePage";
 
 function AuthCallback() {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ const App: React.FC = () => {
             path="/profile"
             element={
               <>
-                <Profile />
+                <ProfileTab />
                 <Navbar />
               </>
             }
@@ -95,10 +96,10 @@ const App: React.FC = () => {
       {/* Routes that don't include the Navbar */}
       <Routes>
         <Route path="/recommendedWorkouts" element={<RecommendedWorkouts />} />
-        
         <Route path="/createaccount" element={<CreateAccount />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/createWorkout" element={<CreateWorkout />} />
+        <Route path="/edit-profile" element={<ProfilePage />} />
       </Routes>
     </Router>
 
