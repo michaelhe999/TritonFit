@@ -50,7 +50,7 @@ router.get('/google/callback',
           console.log('Temporarily redirect to home:', `${process.env.CLIENT_URL}/home`);
           res.redirect(`${process.env.CLIENT_URL}/home`);
           // console.log('Redirecting to:', `${process.env.CLIENT_URL}/createaccount`);
-          // res.redirect(`${process.env.CLIENT_URL}/createaccount`);
+          //res.redirect(`${process.env.CLIENT_URL}/createaccount`);
         }
         else {
         console.log('Redirecting to:', `${process.env.CLIENT_URL}?token=${token}`);
