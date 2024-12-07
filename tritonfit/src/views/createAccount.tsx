@@ -21,16 +21,17 @@ export const CreateAccount = () => {
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    navigate('/home');
+    // event.preventDefault();
 
-    try {
-      const newUser = await addUser(createUser);
-      setMessage(`User created successfully!`);
-      setCreateUser(initialUser); 
-      navigate('/');
-    } catch (error: any) {
-      setMessage(error.message || "Something went wrong");
-    }
+    // try {
+    //   const newUser = await addUser(createUser);
+    //   setMessage(`User created successfully!`);
+    //   setCreateUser(initialUser); 
+    //   navigate('/');
+    // } catch (error: any) {
+    //   setMessage(error.message || "Something went wrong");
+    // }
   };
 
   return (

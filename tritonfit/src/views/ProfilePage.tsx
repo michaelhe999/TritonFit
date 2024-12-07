@@ -7,12 +7,12 @@ import deleteIcon from "../assets/deleteIcon.svg"
 
 export const ProfilePage: React.FC = () => {
     const navigate = useNavigate();
-	const [firstName, setFirstName] = useState("Jane");
-	const [lastName, setLastName] = useState("Doe");
-	const [email, setEmail] = useState("janedoe@gmail.com");
-	const [major, setMajor] = useState("Bioengineering Junior");
-	const [experience, setExperience] = useState("Running, Aerobics");
-	const [about, setAbout] = useState("Hi! I'm just a regular Jane Doe.");
+	const [firstName, setFirstName] = useState("Michael");
+	const [lastName, setLastName] = useState("He");
+	const [email, setEmail] = useState("mih024@ucsd.edu");
+	const [major, setMajor] = useState("Computer Science Sophomore");
+	const [experience, setExperience] = useState("Running, Sports");
+	const [about, setAbout] = useState("Hi! I'm Michael.");
 	const [imgSrc, setImgSrc] = useState(userIcon);
 
 	const updateFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
