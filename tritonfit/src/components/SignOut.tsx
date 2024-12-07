@@ -7,7 +7,7 @@ interface SignOutProps {
 }
 
 const signOut = () => {
-    alert("Sign out confirmed.");
+    window.location.href = "http://localhost:3000/";
 };
 
 export const SignOut: React.FC<SignOutProps> = ({ onClose }) => {

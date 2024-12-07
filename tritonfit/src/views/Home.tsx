@@ -10,14 +10,14 @@ import { useUserData } from '../hooks/useUserData';
 const Home: React.FC = () => {
 
   const { userData: specificData } = useUserData(['name', 'email', 'picture']);
-  const user = specificData?.name || 'Jane Doe';
+  const user = specificData?.name || 'Michael';
 
   const hoursData: { [day: string]: number } = {
     Sun: 0,
-    Mon: 2,
-    Tue: 4,
-    Wed: 2,
-    Thu: 5,
+    Mon: 0,
+    Tue: 0,
+    Wed: 0,
+    Thu: 0,
     Fri: 0,
     Sat: 0,
   };

@@ -30,7 +30,7 @@ export const ProfileTab: React.FC = () => {
         <div>
             <img className={styles.border} src={border} alt="border"/>
             <img className={styles.icon} src={userIcon} alt="icon"/>
-            <h1 className={styles.name}>Jane Doe</h1>
+            <h1 className={styles.name}>Michael He</h1>
             <div className={styles.buttonContainer}>
                 <button className={styles.button} onClick={() => navigate("/edit-profile")}>
                     <img className={styles.buttonIcon} src={editIcon} alt="icon"/>
