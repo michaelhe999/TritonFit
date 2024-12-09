@@ -11,8 +11,11 @@ import arrowIcon from "../assets/arrowIcon.svg"
 import aboutIcon2 from "../assets/aboutIcon2.svg"
 
 export const ProfileTab: React.FC = () => {
-    const [signOutVisible, setSignOutVisible] = useState(false);
     const navigate = useNavigate();
+    const [signOutVisible, setSignOutVisible] = useState(false);
+	const firstName = localStorage.getItem("firstName") || "Jane";
+	const lastName = localStorage.getItem("lastName") || "Doe";
+	const imgSrc = localStorage.getItem("imgSrc") || userIcon;
     
     const openAbout = () => {
         window.open("https://github.com/michaelhe999/TritonFit");
@@ -29,8 +32,8 @@ export const ProfileTab: React.FC = () => {
     return (
         <div>
             <img className={styles.border} src={border} alt="border"/>
-            <img className={styles.icon} src={userIcon} alt="icon"/>
-            <h1 className={styles.name}>Michael He</h1>
+            <img className={styles.icon} src={imgSrc} alt="icon"/>
+            <h1 className={styles.name}>{firstName} {lastName}</h1>
             <div className={styles.buttonContainer}>
                 <button className={styles.button} onClick={() => navigate("/edit-profile")}>
                     <img className={styles.buttonIcon} src={editIcon} alt="icon"/>

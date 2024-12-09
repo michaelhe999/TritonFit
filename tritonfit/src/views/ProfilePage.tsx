@@ -7,13 +7,13 @@ import deleteIcon from "../assets/deleteIcon.svg"
 
 export const ProfilePage: React.FC = () => {
     const navigate = useNavigate();
-	const [firstName, setFirstName] = useState("Michael");
-	const [lastName, setLastName] = useState("He");
-	const [email, setEmail] = useState("mih024@ucsd.edu");
-	const [major, setMajor] = useState("Computer Science Sophomore");
-	const [experience, setExperience] = useState("Running, Sports");
-	const [about, setAbout] = useState("Hi! I'm Michael.");
-	const [imgSrc, setImgSrc] = useState(userIcon);
+	const [firstName, setFirstName] = useState(() => localStorage.getItem("firstName") || "Jane");
+	const [lastName, setLastName] = useState(() => localStorage.getItem("lastName") || "Doe");
+	const [email, setEmail] = useState(() => localStorage.getItem("email") || "janedoe@gmail.com");
+	const [major, setMajor] = useState(() => localStorage.getItem("major") || "Bioengineering Junior");
+	const [experience, setExperience] = useState(() => localStorage.getItem("experience") || "Running, Aerobics");
+	const [about, setAbout] = useState(() => localStorage.getItem("about") || "Hi! I'm just a regular Jane Doe.");
+	const [imgSrc, setImgSrc] = useState(() => localStorage.getItem("imgSrc") || userIcon);
 
 	const updateFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setFirstName(event.target.value)
@@ -41,15 +41,14 @@ export const ProfilePage: React.FC = () => {
 
 	const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-        alert(
-            "Save changes.\n\n" +
-            "First name: " + firstName + "\n" +
-            "Last name: " + lastName + "\n" +
-            "Email: " + email + "\n" +
-            "Major: " + major + "\n" +
-            "Experience: " + experience + "\n" +
-            "About: " + about
-        );
+        localStorage.setItem("firstName", firstName);
+        localStorage.setItem("lastName", lastName);
+        localStorage.setItem("email", email);
+        localStorage.setItem("major", major);
+        localStorage.setItem("experience", experience);
+        localStorage.setItem("about", about);
+        localStorage.setItem("imgSrc", imgSrc);
+        navigate("/profile");
 	};
 
     const editIcon = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +63,8 @@ export const ProfilePage: React.FC = () => {
     };
 
     const deleteAccount = () => {
-        alert("Delete TritonFit account.");
+        localStorage.clear();
+        navigate("/");
     };
 
     return (
